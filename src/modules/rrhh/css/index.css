@@ -1,0 +1,11 @@
+.box {
+    @apply border shadow p-3 bg-white rounded
+}
+
+.isLinkActive {
+    @apply border border-indigo-500
+}
+
+.isLinkActive .link-selected{
+    @apply block
+}

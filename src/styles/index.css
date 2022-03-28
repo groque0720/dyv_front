@@ -1,0 +1,51 @@
+@import '/src/styles/fontawesome.css';
+@import '/src/styles/style-form.css';
+@import '/src/styles/icons.css';
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Pacifico';
+        src: url('/fonts/Pacifico-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Segoe UI';
+        src: url('/fonts/Segoe-UI.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+    }
+}
+
+
+
+body {
+    @apply bg-slate-50 font-segoe text-gray-700 text-sm m-0 p-0 box-border
+}
+
+.btn {
+    @apply  w-full 
+            text-white 
+            bg-blue-700 
+            hover:bg-blue-800 
+            focus:ring-4 
+            focus:ring-blue-300 
+            font-medium 
+            rounded-lg 
+            text-sm 
+            px-5 
+            py-2.5 
+            text-center 
+            dark:bg-blue-600 
+            dark:hover:bg-blue-700 
+            dark:focus:ring-blue-800 
+}

@@ -1,0 +1,11 @@
+.icon-empresa {
+    @apply fas fas fa-industry text-indigo-500
+}
+
+.icon-editar {
+    @apply fas fas fa-edit
+}
+
+.icon-nuevo {
+    @apply fas fas fa-plus
+}
