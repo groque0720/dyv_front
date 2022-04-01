@@ -10,22 +10,8 @@
                 </div>
             </div>
         </div>
-        <div class="p-3">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Derka y Vargas S.A</td>
-                        <td>250</td>
-                    </tr>
-                    <tr>
-                        <td>Agropecuaria</td>
-                        <td>27</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div class="flex justify-center items-center h-72 border-t p-3">
-           <highcharts class="w-full h-full"  :options="chartOptions"></highcharts>
+           <highcharts class="w-full h-full"  :options="chartOptions_01"></highcharts>
         </div>
 
     </div>
@@ -87,65 +73,65 @@ export default {
                                     }]
                                 }]
                             })
-//         const chartOptions_01 = ref({
-//     chart: {
-//         plotBackgroundColor: null,
-//         plotBorderWidth: 0,
-//         plotShadow: false
-//     },
-//     title: {
-//         text: 'Browser<br>shares<br>2017',
-//         align: 'center',
-//         verticalAlign: 'middle',
-//         y: 60
-//     },
-//     tooltip: {
-//         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-//     },
-//     accessibility: {
-//         point: {
-//             valueSuffix: '%'
-//         }
-//     },
-//     plotOptions: {
-//         pie: {
-//             dataLabels: {
-//                 enabled: true,
-//                 distance: -50,
-//                 style: {
-//                     fontWeight: 'bold',
-//                     color: 'white'
-//                 }
-//             },
-//             startAngle: -90,
-//             endAngle: 90,
-//             center: ['50%', '75%'],
-//             size: '110%'
-//         }
-//     },
-//     series: [{
-//         type: 'pie',
-//         name: 'Browser share',
-//         innerSize: '50%',
-//         data: [
-//             ['Chrome', 58.9],
-//             ['Firefox', 13.29],
-//             ['Internet Explorer', 13],
-//             ['Edge', 3.78],
-//             ['Safari', 3.42],
-//             {
-//                 name: 'Other',
-//                 y: 7.61,
-//                 dataLabels: {
-//                     enabled: false
-//                 }
-//             }
-//         ]
-//     }]
-// })
+        const chartOptions_01 = ref({
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    title: {
+        text: 'Browser<br>shares<br>2017',
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 60
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            dataLabels: {
+                enabled: true,
+                distance: -50,
+                style: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                }
+            },
+            startAngle: -90,
+            endAngle: 90,
+            center: ['50%', '75%'],
+            size: '110%'
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Browser share',
+        innerSize: '50%',
+        data: [
+            ['Chrome', 58.9],
+            ['Firefox', 13.29],
+            ['Internet Explorer', 13],
+            ['Edge', 3.78],
+            ['Safari', 3.42],
+            {
+                name: 'Other',
+                y: 7.61,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        ]
+    }]
+})
 
         return {
-            chartOptions,
+            chartOptions_01,
             titulo: props.estado.title,
             icono: props.estado.icono,
             color:props.estado.color,

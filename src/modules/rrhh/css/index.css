@@ -3,7 +3,7 @@
 }
 
 .isLinkActive {
-    @apply border border-indigo-500
+    @apply border border-indigo-400 bg-indigo-50 font-semibold
 }
 
 .isLinkActive .link-selected{

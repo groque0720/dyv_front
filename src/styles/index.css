@@ -65,5 +65,5 @@ table tbody tr {
 }
 
 table tbody tr td {
-    @apply py-2
+    @apply py-2 px-2
 }

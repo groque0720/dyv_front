@@ -1,14 +1,13 @@
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-       
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
+
         <CardEstado 
         :estado="{ title:'Empresas', to:'rrhh_dashboard', icono:' fas fa-industry ', color:'indigo'}">
-            <span>Empresa</span>
         </CardEstado>
         
-        <CardEstado 
+        <CardEstadoPersonal 
         :estado="{ title:'Sucursales', to:'', icono:'fas fa-users ', color:'blue'}">
-        <span>200</span></CardEstado>
+        <span>200</span></CardEstadoPersonal>
 
         <CardEstado 
         :estado="{ title:'Nómina', to:'', icono:'fas fa-users ', color:'blue'}">
@@ -31,20 +30,71 @@
         :estado="{ title:'Cumpleaños', to:'', icono:'fas fa-birthday-cake ', color:'Magenta'}"></CardEstado>
         
         <CardEstado 
-        :estado="{ title:'Otras Licencias', to:'', icono:'fas fa-bullseye ', color:'Purple'}"></CardEstado>
+        :estado="{ title:'Otras Licencias', to:'', icono:'fas fa-bullseye ', color:'Purple'}"></CardEstado> -->
 
 
     </div>
 </template>
 
 <script>
+
 import CardEstado from "../components/CardEstado.vue"
+import { Chart } from 'highcharts-vue'
+import { ref } from 'vue';
+import CardEstadoPersonal from "../components/CardEstadoPersonal.vue";
+
 
 export default {
     setup() {
-        return {};
+
+    const chartOptions = ref({
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: ''
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                accessibility: {
+                                    point: {
+                                        valueSuffix: '%'
+                                    }
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    name: 'Personal',
+                                    colorByPoint: true,
+                                    data: [{
+                                        name: 'Derka y Vargas',
+                                        y: 61.41,
+                                        sliced: true,
+                                        selected: true
+                                    }, {
+                                        name: 'Agropecuaria',
+                                        y: 11.84
+                                    }]
+                                }]
+                            })
+        return {
+            chartOptions,
+
+        };
     },
-    components: { CardEstado }
+    components: { CardEstado, highcharts: Chart, CardEstadoPersonal }
 }
 
 </script>

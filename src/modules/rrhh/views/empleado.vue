@@ -40,7 +40,7 @@
                     :config="{
                             title: 'Grupo Familiar',
                             icon:' icon-familia ',
-                            to: 'rrhh_empleado_familiares' }"></ButtonLink>
+                            to: 'rrhh_empleado_grupo_familiar' }"></ButtonLink>
 
                 <ButtonLink
                     :config="{

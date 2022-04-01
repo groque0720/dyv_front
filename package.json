@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "highcharts-vue": "^1.4.0",
     "pinia": "^2.0.11",
     "sweetalert2": "^11.4.4",
     "vue": "^3.2.25",
@@ -24,7 +25,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     }
   }
 }

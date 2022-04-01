@@ -47,6 +47,14 @@
     @apply fas fa-power-off text-orange-500
 }
 
+.icon-vacaciones {
+    @apply fas fa-umbrella-beach text-yellow-500
+}
+
+.icon-cumpleanio {
+    @apply fas fa-birthday-cake text-fuchsia-500
+}
+
 .icon-actividad {
     @apply fas fa-user-clock text-fuchsia-500
 }

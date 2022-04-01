@@ -1,5 +1,5 @@
 <template>
-    <div class="p-3 bg-white border">
+    <div class="p-3 bg-white">
 
         <div class="flex justify-between items-center pb-1 border-b border-indigo-500">
             <div class="flex gap-3">

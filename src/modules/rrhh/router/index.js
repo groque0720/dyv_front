@@ -29,9 +29,44 @@ export default {
                     component: () => import('../views/empleadoPerfil.vue')
                 },
                 {
-                    path: 'perfil',
+                    path: 'preocupacional',
+                    name: 'rrhh_empleado_preocupacional',
+                    component: () => import('../views/preocupacional.vue')
+                },
+                {
+                    path: 'grupo_familiar',
                     name: 'rrhh_empleado_grupo_familiar',
-                    component: () => import('../views/empleadoGrupoFamiliar.vue')
+                    component: () => import('../views/grupo_familiar.vue')
+                },
+                {
+                    path: 'puestos',
+                    name: 'rrhh_empleado_puestos',
+                    component: () => import('../views/puestos.vue')
+                },
+                {
+                    path: 'talles',
+                    name: 'rrhh_empleado_talles',
+                    component: () => import('../views/talles.vue')
+                },
+                {
+                    path: 'uniformes',
+                    name: 'rrhh_empleado_uniformes',
+                    component: () => import('../views/uniformes.vue')
+                },
+                {
+                    path: 'capacitacion',
+                    name: 'rrhh_empleado_capacitacion',
+                    component: () => import('../views/capacitacion.vue')
+                },
+                {
+                    path: 'licencias',
+                    name: 'rrhh_empleado_licencias',
+                    component: () => import('../views/empleadoLicencias.vue')
+                },
+                {
+                    path: 'actividades',
+                    name: 'rrhh_empleado_actividades',
+                    component: () => import('../views/empleadoActividades.vue')
                 }
             ]
         },

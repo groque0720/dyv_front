@@ -21,7 +21,7 @@
         </div>
         
     </nav>
-    <div class="pt-14 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 flex justify-center">
+    <div class="pt-14 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 flex justify-center">
         <div class="w-full ">
             <!-- <div  class=" grid grid-cols-3 gap-3" >
 
