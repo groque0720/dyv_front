@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="flex justify-center items-center h-36 border-t">
-            <slot>Texto por defecto</slot>
+            <slot> <span class="text-2xl"> 2 </span> </slot>
         </div>
         <!-- <div class="p-3">
             <button class="btn" type="submit"> Ir </button>

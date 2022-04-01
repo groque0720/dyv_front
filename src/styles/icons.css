@@ -1,6 +1,3 @@
-.icon-empresa {
-    @apply fas fas fa-industry text-indigo-500
-}
 
 .icon-editar {
     @apply fas fas fa-edit
@@ -8,4 +5,56 @@
 
 .icon-nuevo {
     @apply fas fas fa-plus
+}
+
+.icon-empresa {
+    @apply fas fas fa-industry text-indigo-500
+}
+
+.icon-perfil {
+    @apply fas fa-user text-indigo-500
+}
+
+.icon-capacitacion {
+    @apply fas fa-user-graduate text-sky-500
+}
+
+.icon-sexo {
+    @apply fas fa-restroom text-green-500
+}
+
+.icon-familia {
+    @apply fas fa-heart text-green-500
+}
+
+.icon-vinculo {
+    @apply fas fa-people-arrows text-red-500
+}
+
+.icon-puesto {
+    @apply fas fa-street-view text-purple-600 
+}
+
+.icon-medida {
+    @apply fas fa-ruler text-lime-500
+}
+
+.icon-area {
+    @apply fas fa-sitemap
+}
+
+.icon-licencia {
+    @apply fas fa-power-off text-orange-500
+}
+
+.icon-actividad {
+    @apply fas fa-user-clock text-fuchsia-500
+}
+
+.icon-preocupacional {
+    @apply fas fa-user-md text-red-500
+}
+
+.icon-uniforme {
+    @apply fas fa-tshirt text-gray-500
 }

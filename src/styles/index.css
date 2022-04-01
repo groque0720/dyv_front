@@ -49,3 +49,21 @@ body {
             dark:hover:bg-blue-700 
             dark:focus:ring-blue-800 
 }
+
+
+
+table {
+    @apply table-auto w-full
+}
+
+table thead tr {
+    @apply border-b-2 h-9
+}
+
+table tbody tr {
+    @apply cursor-pointer border-b hover:bg-indigo-100
+}
+
+table tbody tr td {
+    @apply py-2
+}

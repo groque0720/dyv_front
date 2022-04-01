@@ -16,49 +16,33 @@
                 <ButtonLink
                     :config="{
                             title: 'Sexo',
-                            icon:' fas fa-restroom text-indigo-500 ',
-                            to: 'rrhh_configuracion_sexo' }"></ButtonLink>
+                            icon:' icon-sexo ',
+                            to: 'rrhh_sexos' }"></ButtonLink>
 
                 <ButtonLink
                     :config="{
                             title: 'Vinculos',
-                            icon:' fas fa-people-arrows text-purple-500',
-                            to: 'rrhh_configuracion_vinculos' }"></ButtonLink> 
+                            icon:' icon-vinculo',
+                            to: 'rrhh_vinculos' }"></ButtonLink> 
 
                 <ButtonLink
                     :config="{
                             title: 'Puestos',
-                            icon:' fas fa-people-arrows text-purple-500',
-                            to: 'rrhh_configuracion_vinculos' }"></ButtonLink>                            
+                            icon:' icon-puesto ',
+                            to: 'rrhh_puestos' }"></ButtonLink>                            
 
-                
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-power-off text-orange-500"></i>
-                        <span>Puestos</span>
-                    </div>
-                </a>
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-power-off text-orange-500"></i>
-                        <span>Areas</span>
-                    </div>
-                </a>
+                <ButtonLink
+                    :config="{
+                            title: 'Areas',
+                            icon:' icon-area ',
+                            to: 'rrhh_areas' }"></ButtonLink>  
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-power-off text-orange-500"></i>
-                        <span>Alcance</span>
-                    </div>
-                </a>
-
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-power-off text-orange-500"></i>
-                        <span>Licencias</span>
-                    </div>
-                </a>
+                <ButtonLink
+                    :config="{
+                            title: 'Licencias',
+                            icon:' icon-licencia ',
+                            to: 'rrhh_licencias' }"></ButtonLink>                                              
 
 
             </div>

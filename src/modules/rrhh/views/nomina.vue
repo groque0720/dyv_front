@@ -46,7 +46,7 @@
                         
                         <!-- Avatar // Nombre y Puesto -->
                         <td>
-                            <div class="py-2 flex flex-auto p-1 gap-3">
+                            <div class="flex flex-auto p-1 gap-3">
                                 <div class="flex items-center">
                                     <img class=" h-8 w-8 rounded-full" src="https://reqres.in/img/faces/7-image.jpg" alt="">
                                 </div>
@@ -59,7 +59,7 @@
 
                         <!-- Empresa y Sucursal -->
                         <td>
-                            <div class="py-2 flex flex-col justify-center">
+                            <div class="flex flex-col justify-center">
                                 <span>Nombre Empleado</span>
                                 <span class="text-xs">Sucursal</span>
                             </div>
@@ -67,7 +67,7 @@
 
                         <!-- Estado-->
                         <td>
-                            <div class="py-2 flex items-center justify-center">
+                            <div class="flex items-center justify-center">
                                 <span class="px-3 rounded border border-green-400 bg-green-100 text-green-500">
                                     Activo
                                 </span>

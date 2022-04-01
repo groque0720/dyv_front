@@ -7,7 +7,6 @@
         <div class="w-3/12 rounded flex flex-col gap-3">
 
             <div class="border rounded shadow-md">
-
                 <div class="flex relative justify-center items-center p-5">
                     <img  
                         class="w-20 h-50 rounded-full z-10 border-2 border-white shadow-lg shadow-slate-500"
@@ -16,82 +15,80 @@
                     <div class="bg-green-300 h-3/6 w-full absolute top-0 rounded-t">
                     </div>
                 </div>
-
                 <div class="flex flex-col items-center pb-5">
                     <span class=" font-semibold text-indigo-500">Nombre Empleado</span>
                     <span>Sucursal</span>
                     <span>Puesto</span>
                 </div>
-            
-            
             </div>
-
 
             <div class="flex flex-col gap-1">
 
                 <ButtonLink
                     :config="{
                             title: 'Perfil',
-                            icon:' fas fa-user text-indigo-500 ',
+                            icon:' icon-perfil ',
                             to: 'rrhh_empleado_perfil' }"></ButtonLink>
+                
+                <ButtonLink
+                    :config="{
+                            title: 'Preocupacional',
+                            icon:' icon-preocupacional ',
+                            to: 'rrhh_empleado_preocupacional' }"></ButtonLink>
 
                 <ButtonLink
                     :config="{
                             title: 'Grupo Familiar',
-                            icon:' fas fa-heart text-red-500 ',
-                            to: 'rrhh_empleado_grupo_familiar' }"></ButtonLink>
+                            icon:' icon-familia ',
+                            to: 'rrhh_empleado_familiares' }"></ButtonLink>
 
+                <ButtonLink
+                    :config="{
+                            title: 'Puestos',
+                            icon:' icon-puesto ',
+                            to: 'rrhh_empleado_puestos' }"></ButtonLink>
 
+                <ButtonLink
+                    :config="{
+                            title: 'Talles/Medidas',
+                            icon:' icon-medida ',
+                            to: 'rrhh_empleado_medidas' }"></ButtonLink>
+                
+                <ButtonLink
+                    :config="{
+                            title: 'Entrega de Uniforme',
+                            icon:' icon-uniforme ',
+                            to: 'rrhh_empleado_uniformes' }"></ButtonLink>
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-street-view text-purple-500"></i>
-                        <span>Puestos</span>
-                    </div>
-                </a>
+                <ButtonLink
+                    :config="{
+                            title: 'Capacitacion',
+                            icon:' icon-capacitacion ',
+                            to: 'rrhh_empleado_capacitaciones' }"></ButtonLink>
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-ruler text-lime-500"></i>
-                        <span>Talles/Medidas</span>
-                    </div>
-                </a>
+                <ButtonLink
+                    :config="{
+                            title: 'Licencias',
+                            icon:' icon-licencia ',
+                            to: 'rrhh_empleado_licencias' }"></ButtonLink>
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-user-graduate text-sky-500"></i>
-                        <span>Capacitación</span>
-                    </div>
-                </a>
+                <ButtonLink
+                    :config="{
+                            title: 'Actividades',
+                            icon:' icon-actividad ',
+                            to: 'rrhh_empleado_actividades' }"></ButtonLink>
 
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-power-off text-orange-500"></i>
-                        <span>Licencias</span>
-                    </div>
-                </a>
-
-                <a href="">
-                    <div class="flex items-center pl-5 p-2 border rounded-full gap-3 shadow-md hover:bg-indigo-50 ">
-                        <i class="fas fa-user-clock text-fuchsia-500"></i>
-                        <span>Actividades</span>
-                    </div>
-                </a>
 
             </div>
 
         </div>
-
-
 
         <!-- formularios -->
         <div class="w-9/12 border rounded">
             <router-view></router-view>
         </div>
     </div>
-    <!-- <div>
-            Hola desde Empleado  {{ id }}      
-    </div> -->
+
 </template>
 
 <script>

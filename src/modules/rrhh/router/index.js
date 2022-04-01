@@ -43,18 +43,34 @@ export default {
                 {
                     path: 'empresas',
                     name: 'rrhh_configuracion_empresas',
-                    component: () => import('../views/configuracionEmpresas.vue')
+                    component: () => import('../../empresa/views/empresas.vue')
+                    // component: () => import('../views/empresas.vue')
                 },
                 {
-                    path: 'sexo',
-                    name: 'rrhh_configuracion_sexo',
-                    component: () => import('../views/configuracionSexo.vue')
+                    path: 'sexos',
+                    name: 'rrhh_sexos',
+                    component: () => import('../views/sexos.vue')
                 },
                 {
-                    path: 'relaciones',
-                    name: 'rrhh_configuracion_relaciones',
-                    component: () => import('../views/configuracionRelacion.vue')
-                }
+                    path: 'vinculos',
+                    name: 'rrhh_vinculos',
+                    component: () => import('../views/vinculos.vue')
+                },
+                {
+                    path: 'puestos',
+                    name: 'rrhh_puestos',
+                    component: () => import('../views/puestos.vue')
+                },
+                {
+                    path: 'areas',
+                    name: 'rrhh_areas',
+                    component: () => import('../views/areas.vue')
+                },
+                {
+                    path: 'licencias',
+                    name: 'rrhh_licencias',
+                    component: () => import('../views/licencias.vue')
+                }                                
             ]
         },
     ] 

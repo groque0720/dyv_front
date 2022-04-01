@@ -5,12 +5,18 @@
         :estado="{ title:'Empresas', to:'rrhh_dashboard', icono:' fas fa-industry ', color:'indigo'}">
             <span>Empresa</span>
         </CardEstado>
+        
+        <CardEstado 
+        :estado="{ title:'Sucursales', to:'', icono:'fas fa-users ', color:'blue'}">
+        <span>200</span></CardEstado>
 
         <CardEstado 
-        :estado="{ title:'Nómina', to:'', icono:'fas fa-users ', color:'blue'}"></CardEstado>
+        :estado="{ title:'Nómina', to:'', icono:'fas fa-users ', color:'blue'}">
+        <span>200</span></CardEstado>
 
         <CardEstado 
-        :estado="{ title:'Activos', to:'', icono:'fas fa-user-check ', color:'green'}"></CardEstado>
+        :estado="{ title:'Activos', to:'', icono:'fas fa-user-check ', color:'green'}">
+        <span>150</span></CardEstado>
 
         <CardEstado 
         :estado="{ title:'Licencia', to:'', icono:'fas fa-power-off ', color:'orange'}"></CardEstado>
@@ -19,7 +25,7 @@
         :estado="{ title:'Parte Médico', to:'', icono:'fas fa-ambulance ', color:'red'}"></CardEstado>
 
         <CardEstado 
-        :estado="{ title:'Vacaciones', to:'', icono:'fas fa-umbrella-beach ', color:'lime'}"></CardEstado>
+        :estado="{ title:'Vacaciones', to:'', icono:'fas fa-umbrella-beach ', color:'sky'}"></CardEstado>
 
         <CardEstado 
         :estado="{ title:'Cumpleaños', to:'', icono:'fas fa-birthday-cake ', color:'Magenta'}"></CardEstado>

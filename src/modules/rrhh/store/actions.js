@@ -2,25 +2,23 @@ import { useRrhhStore } from ".";
 import dyvApi from "../../../api/dyvApi";
 
 
-const cargarEmpresas = async() => {
+const loadEmpleados= async() => {
 
-    // const rrhhStore = useRrhhStore();
-
-    const rrhhStore = useRrhhStore();
+    const useRrhhStore = useRrhhStore();
 
     try {
 
-        const { data } = await dyvApi.get('/empresas');
+        const { data } = await dyvApi.get(`/usuarios`);
 
-        rrhhStore.empresas = data;
+        console.log( data );
 
-        console.log(data);
-
-        // return { ok: true, message: 'Si hay Token válido' }
+        useRrhhStore.empleados = data;
+ 
+        return { ok: true }
         
     } catch (error) {
 
-        return { ok: false, message: 'Ha ocurrido un error' }
+        return { ok: false, message: error.response.data.msg }
         
     }
 
@@ -28,6 +26,72 @@ const cargarEmpresas = async() => {
 }
 
 
+const loadSexos= async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/sexos`);
+        
+        rrhhStore.sexos = data;
+        return { ok: true }
+       } catch (error) {
+        return { ok: false, message: error.response.data.msg }    
+    }
+}
+
+const loadVinculos= async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/vinculos`);
+        
+        rrhhStore.vinculos = data;
+        return { ok: true }
+       } catch (error) {
+        return { ok: false, message: error.response.data.msg }    
+    }
+}
+
+
+const loadLicencias = async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/licencias`);
+        console.log( data );
+        rrhhStore.licencias = data;
+        return { ok: true }
+       } catch (error) {
+        return { ok: false, message: error.response.data.msg }    
+    }
+}
+
+const loadPuestos = async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/puestos`);
+        console.log( data );
+        rrhhStore.puestos = data;
+        return { ok: true }
+       } catch (error) {
+        return { ok: false, message: error.response.data.msg }    
+    }
+}
+
+const loadAreas = async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/areas`);
+        console.log( data );
+        rrhhStore.areas = data;
+        return { ok: true }
+       } catch (error) {
+        return { ok: false, message: error.response.data.msg }    
+    }
+}
+
 export default {
-    cargarEmpresas,
+    loadEmpleados,
+    loadSexos,
+    loadVinculos,
+    loadLicencias,
+    loadPuestos,
+    loadAreas
 }

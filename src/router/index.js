@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import authRouter from '../modules/auth/router'
 import isAuthenticatedGuard from '../modules/auth/router/auth-guard';
-import rrhhRouter from '../modules/rrhh/router'
+import rrhhRouter from '../modules/rrhh/router';
+import empresaRouter from '../modules/empresa/router';
 
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
             {
                 path:'rrhh',
                 ...rrhhRouter
+            },
+            {
+                path:'empresas',
+                ...empresaRouter
             },
         ],
         // path: '/rrhh',
