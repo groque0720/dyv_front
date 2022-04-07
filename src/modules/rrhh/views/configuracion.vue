@@ -1,10 +1,10 @@
 <template>
-    <div class=" flex justify-between item-start gap-3">
+    <div class=" flex flex-col md:flex-row justify-between item-start gap-3">
 
-        <div class="w-3/12 rounded flex flex-col gap-2">
+        <div class="w-full md:w-3/12 rounded flex flex-col gap-2">
 
 
-            <div class="flex flex-col gap-1">
+            <div class="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-1 gap-1">
 
 
                 <ButtonLink
@@ -50,7 +50,7 @@
         </div>
 
         <!-- formularios -->
-        <div class="w-9/12 border rounded">
+        <div class="w-full md:w-9/12 border rounded">
             <router-view></router-view>
         </div>
 

@@ -1,10 +1,10 @@
 
 <template>
 
-    <div class=" flex justify-between item-start gap-3">
+    <div class=" flex flex-col justify-between item-start gap-3">
 
         <!-- Avatar // Menú -->
-        <div class="w-3/12 rounded flex flex-col gap-3">
+        <div class="w-full md:w-3/12 rounded flex flex-col gap-3">
 
             <div class="border rounded shadow-md">
                 <div class="flex relative justify-center items-center p-5">
@@ -84,7 +84,7 @@
         </div>
 
         <!-- formularios -->
-        <div class="w-9/12 border rounded">
+        <div class="w-full md:w-9/12 border rounded">
             <router-view></router-view>
         </div>
     </div>
