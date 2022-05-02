@@ -85,7 +85,7 @@ import { useRouter } from 'vue-router';
 import router from "../router";
 import Modal from "../../../components/Modal.vue";
 import Empresa from "./empresa.vue";
-import Loading from "../../../components/loading.vue";
+import Loading from "../../../components/Loading.vue";
 
 export default {
     name: 'Empresas',
