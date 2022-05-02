@@ -94,7 +94,7 @@ import { ref, computed } from 'vue';
 import Sucursales from './sucursales.vue';
 import Modal from "../../../components/Modal.vue";
 import EmpresaSindicato from "./empresaSindicato.vue";
-import Loading from "../../../components/loading.vue";
+import Loading from "../../../components/Loading.vue";
 import Sectores from "./sectores.vue";
 import Areas from "./areas.vue";
 import Puestos from "./puestos.vue";
