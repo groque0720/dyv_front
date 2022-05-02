@@ -35,7 +35,7 @@
 import { useEmpresaStore } from '@/modules/empresa/store'
 import { useSindicatoStore } from '../../sindicato/store'
 import { computed, ref } from 'vue';
-import Loading from '../../../components/loading.vue';
+import Loading from '../../../components/Loading.vue';
 import { mapActions } from 'pinia';
 
 
