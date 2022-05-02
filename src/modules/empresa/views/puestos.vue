@@ -48,7 +48,7 @@
 import { useEmpresaStore } from "../store"
 import { ref, computed } from 'vue';
 import Modal from "../../../components/Modal.vue";
-import Puesto from "./Puesto.vue";
+import Puesto from "./puesto.vue";
 
 export default {
     setup(_, context) {
