@@ -2,7 +2,8 @@ import axios from "axios";
 
 const authApi = axios.create({
 
-    baseURL: 'http://localhost:5000/api'
+    // baseURL: 'http://localhost:5000/api'
+    baseURL: 'https://api.appdyv.online/api'
 
     // headers: { 
     //     'Content-Type': 'application/json',
