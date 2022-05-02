@@ -65,6 +65,7 @@ import { useRouter } from 'vue-router';
 import router from "../router";
 
 export default {
+    name: 'Capacitacion',
     setup() {
         const router = useRouter()
         const rrhhStore = useRrhhStore()

@@ -1,14 +1,54 @@
 
 .icon-editar {
-    @apply fas fas fa-edit
+    @apply fas fa-edit
 }
 
 .icon-nuevo {
-    @apply fas fas fa-plus
+    @apply fas fa-plus
+}
+
+.icon-guardar {
+    @apply fas fa-save
+}
+
+.icon-left {
+    @apply fas fa-chevron-left
+}
+
+.icon-right {
+    @apply fas fa-chevron-right
+}
+
+.icon-off {
+    @apply fas fa-toggle-off text-gray-500
+}
+
+.icon-on {
+    @apply fas fa-toggle-on text-indigo-500
+}
+
+.icon-check {
+    @apply fas fa-check text-indigo-500
+}
+
+.icon-check-on {
+    @apply fas fa-check-circle text-indigo-500
+}
+
+.icon-check-off {
+    @apply far fa-circle text-gray-500
 }
 
 .icon-empresa {
     @apply fas fas fa-industry text-indigo-500
+}
+
+.icon-sucursal {
+    @apply fas fa-project-diagram text-indigo-500
+}
+
+.icon-sector {
+    @apply fas fa-bezier-curve text-indigo-500
 }
 
 .icon-perfil {
@@ -19,8 +59,12 @@
     @apply fas fa-user-graduate text-sky-500
 }
 
+.icon-estado-civil {
+    @apply fas fa-ring text-orange-500
+}
+
 .icon-sexo {
-    @apply fas fa-restroom text-green-500
+    @apply fas fa-venus-mars text-green-500
 }
 
 .icon-familia {
@@ -65,4 +109,8 @@
 
 .icon-uniforme {
     @apply fas fa-tshirt text-gray-500
+}
+
+.icon-sindicato {
+    @apply fab fa-angellist  text-red-500
 }

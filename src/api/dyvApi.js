@@ -11,13 +11,13 @@ const dyvApi = axios.create({
 
 })
 
-dyvApi.interceptors.request.use( (config) => {
+// dyvApi.interceptors.request.use( (config) => {
 
-    config.headers = {
-        'x-token': localStorage.getItem('idToken'),
-    }
+//     config.headers = {
+//         'x-token': localStorage.getItem('idToken'),
+//     }
 
-    return config
-})
+//     return config
+// })
 
 export default dyvApi

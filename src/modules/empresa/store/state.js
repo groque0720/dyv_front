@@ -1,6 +1,7 @@
 export default () => ({
     empresas: [], 
     empresa: {},
-    sucursales: [],
-    sucursal:{}
+    sucursal:{},
+    area:{},
+    sector:{},
 })

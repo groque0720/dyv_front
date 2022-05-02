@@ -1,18 +1,19 @@
 <template>
-  <div class="modal-background z-10" @click.self="$emit('on:close')">
+  <div class="modal-background fade-in z-20 p-3" @click.self="$emit('on:close')">
       
-      <div class="modal-container">
-
+      <div class="modal-container p-3" :class="clase">
           <slot name="header"/>
           <slot name="body"/>
           <slot name="footer"/>
 
           <!-- <slot name="exposed" :newTitle="newTitle"></slot> -->
-        <slot>
+        <!-- <slot>
             <div class="center">
             Esto aparecerá si no tenenemos contenido 
             </div>
-        </slot>
+        </slot> -->
+        <!-- <button @click="$emit('on:close')">cerrar</button>
+        <button @click="$emit('on:aceptar')">Aceptar</button> -->
 
       </div>
 
@@ -21,15 +22,15 @@
 
 <script>
 export default {
-    emits: ['on:close'],
-    props:['title'],
 
+    props:['title','clase'],
     setup( props, context ) {
 
-        // console.log( {props, context} )
+        console.log( {props, context} )
 
         return {
-            newTitle: props.title?.toUpperCase()
+            newTitle: props.title?.toUpperCase(),
+            elPepe: () => console.log('el pepe')
         }
 
     }
@@ -44,16 +45,15 @@ export default {
     left: 0;
     width: 100vw;
     height: 100vh;
-
     display: flex;
     background-color: rgba(0, 0, 0, 0.5);
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
 .modal-container {
     min-width: 250px;
-    min-height: 250px;
+    /* min-height: 250px; */
     background-color: white;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -63,8 +63,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
-    height: 250px;
+    /* width: 250px;
+    height: 250px; */
     color: red;
 }
 

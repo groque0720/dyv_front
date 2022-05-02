@@ -25,6 +25,7 @@ import { ref } from 'vue';
 
 
 export default {
+    name: 'CardEstadoPersonal',
     props:{
         estado: Object
     },

@@ -1,152 +1,351 @@
 <template>
-    <div class="p-3">
-
-
+    <Loading v-if="isLoading" ></Loading>
+    <div v-else class="p-3">
         <div class="flex items-center gap-2  border-b border-indigo-500">
-            <i class="fas fa-user text-indigo-500 text-md"></i>
+            <i class="icon-perfil text-lg"></i>
             <span class=" text-lg">Perfil</span>
         </div>
-        
-        <form action="" >
+        <!-- <p v-if="errors.length">
+            <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
+            <ul>
+            <li v-for="error in errors">{{ error }}</li>
+            </ul>
+        </p> -->
+        <form action="#" @submit.prevent="enviarForm()" autocomplete="off" class="mt-2 p-3 border rounded">
             <div class="form-row flex justify-between gap-3">
                 <div class=" flex-1">
-                    <label for="">Nombre/s</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Nombre/s</label>
+                    <input class="form-input" type="text" name="nombre" v-model="empleadoForm.nombre" required>
+                    <Errors :errors="errors" :field="'nombre'"></Errors>
                 </div>
                 <div class="flex-1">
-                    <label for="">Apellido/s</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Apellido/s</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.apellido" required>
                 </div> 
                 <div class="">
-                    <label for="">Fecha Nacimiento</label>
-                    <input class="form-input" type="date">
+                    <label class="required" for="">Fecha Nacimiento</label>
+                    <input class="form-input" type="date" name="fecha_nacimiento" v-model="empleadoForm.fecha_nacimiento" required>
+                    <Errors :errors="errors" :field="'fecha_nacimiento'"></Errors>
                 </div>  
             </div>
 
             <div class="form-row flex justify-between gap-3">
 
                 <div class="flex-1">
-                    <label for="">Nro Documento</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Nro Documento</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.nro_documento" required>
+                    <Errors :errors="errors" :field="'nro_documento'"></Errors>
                 </div>
                 <div class="flex-1">
-                    <label for="">CUIL</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">CUIL</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.cuil" required>
                 </div>
                 <div class="flex-1">
-                    <label for="">Sexo</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Femenino</option>
-                        <option value="">Masculino</option>
+                    <label class="required" for="">Sexo</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.sexo_id" required>
+                        <template v-for="sexo in sexos" :key="sexo.id">
+                            <option :value="sexo.id">{{ sexo.sexo }}</option>
+                        </template>
                     </select>
+                    <Errors :errors="errors" :field="'sexo_id'"></Errors>
                 </div>
                 <div class="flex-1">
-                    <label for="">Estado Civil</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Casado</option>
-                        <option value="">Soltero</option>
+                    <label class="required" for="">Estado Civil</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.estado_civil_id" required>
+                        <template v-for="estado_civil in estadosCiviles" :key="estado_civil.id">
+                            <option :value="estado_civil.id">{{ estado_civil.estado_civil }}</option>
+                        </template>
                     </select>
                 </div>   
             </div>
 
             <div class="form-row flex justify-between gap-3">
                 <div class=" flex-1">
-                    <label for="">Calle</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Calle</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.calle" required>
                 </div>
                 <div class="">
                     <label for="">Nro</label>
-                    <input class="form-input" type="text">
+                    <input class="form-input" type="text" v-model="empleadoForm.nro">
                 </div>
                 <div class="">
                     <label for="">Piso</label>
-                    <input class="form-input" type="text">
+                    <input class="form-input" type="text" v-model="empleadoForm.piso">
                 </div>
                 <div class="">
                     <label for="">Dpto</label>
-                    <input class="form-input" type="text">
+                    <input class="form-input" type="text" v-model="empleadoForm.dpto">
                 </div>
             </div>
 
             <div class="form-row flex justify-between gap-3">
                 <div class=" flex-1">
-                    <label for="">Localidad</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Localidad</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.localidad" required>
                 </div>
                 <div class="">
-                    <label for="">Provincia</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Provincia</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.provincia" required>
                 </div>
                 <div class="">
-                    <label for="">CP</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">CP</label>
+                    <input class="form-input" type="text" v-model="empleadoForm.cp" required>
                 </div>
             </div>
 
             <div class="form-row flex justify-between gap-3">
                 <div class="">
                     <label for="">Teléfono</label>
-                    <input class="form-input" type="text">
+                    <input class="form-input" type="text" v-model="empleadoForm.telefono">
                 </div>
                 <div class="">
-                    <label for="">Celular</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Celular</label>
+                    <input class="form-input" type="text" name="celular" v-model="empleadoForm.celular" required>
                 </div>
                 <div class="flex-1">
                     <label for="">Email</label>
-                    <input class="form-input" type="text">
+                    <input class="form-input" type="text" name="email" v-model="empleadoForm.email" required>
+                    <Errors :errors="errors" :field="'email'"></Errors>
                 </div>
             </div>
             <div class="form-row flex justify-between gap-3">
                 <div class="">
-                    <label for="">Nro Legajo</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Nro Legajo</label>
+                    <input class="form-input" type="text" name="nro_legajo" v-model="empleadoForm.nro_legajo" required>
+                    <Errors :errors="errors" :field="'nro_legajo'"></Errors>
                 </div>
                 <div class="">
-                    <label for="">Fecha Ingreso</label>
-                    <input class="form-input" type="date">
+                    <label class="required" for="">Fecha Ingreso</label>
+                    <input class="form-input" type="date" v-model="empleadoForm.fecha_ingreso" required>
                 </div>
                 <div class="flex-1">
-                    <label for="">Nombre Usuario</label>
-                    <input class="form-input" type="text">
+                    <label class="required" for="">Nombre Usuario</label>
+                    <input class="form-input" type="text" name="username" v-model="empleadoForm.username" required>
+                    <Errors :errors="errors" :field="'username'"></Errors>
                 </div>   
             </div>
             <div class="form-row flex justify-between gap-3">
                 <div class="flex-1">
-                    <label for="">Empresa</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Empresa 1</option>
-                        <option value="">Empresa 2</option>
+                    <label class="required" for="">Empresa</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.empresa_id"  @change="onChangeEmpresa($event.target.value)" required>
+                        <template v-for="empresa in empresas" :key="empresa.id">
+                            <option :value="empresa.id">{{ empresa.nombre }}</option>
+                        </template>
                     </select>
                 </div>
                 <div class="flex-1">
-                    <label for="">Sucursal</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Sucursal 1</option>
-                        <option value="">Sucursal 2</option>
+                    <label class="required" for="">Sucursal</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.sucursal_id" @change="onChangeSucursal($event.target.value)" required>
+                        <template v-for="sucursal in sucursales" :key="sucursal.id">
+                            <option :value="sucursal.id">{{ sucursal.nombre }}</option>
+                        </template>
                     </select>
                 </div>
                 <div class="flex-1">
-                    <label for="">Area</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Area 1</option>
-                        <option value="">Area 2</option>
+                    <label for="">Sector</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.sector_id" required>
+                        <template v-for="sector in sectores" :key="sector.id">
+                            <option :value="sector.id">{{ sector.sector }}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="flex-1">
+                    <label class="required" for="">Area</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.area_id" required>
+                        <template v-for="area in areas" :key="area.id">
+                            <option :value="area.id">{{ area.area }}</option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row flex justify-between gap-3">
+                <div class="flex-1">
+                    <label for="">Sindicatos</label>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.sindicato_id" @change="onChangeSindicato($event.target.value)" required>
+                        <template v-for="sindicato in sindicatos" :key="sindicato.id">
+                            <option :value="sindicato.id">{{ sindicato.sindicato }}</option>
+                        </template>
                     </select>
                 </div>
                 <div class="flex-1">
                     <label for="">Categoria</label>
-                    <select class="form-select" name="" id="">
-                        <option value="">Categoria 1</option>
-                        <option value="">Categoria 2</option>
+                    <select class="form-select" name="" id="" v-model="empleadoForm.categoria_id" required>
+                        <template v-for="categoria in categorias" :key="categoria.id">
+                            <option :value="categoria.id">{{ categoria.categoria }}</option>
+                        </template>
                     </select>
                 </div>
             </div>
-            <div class="form-row flex justify-between border-t mt-2">
-                <span class="form-btn-cancelar" type="text" @click.prevent="">Volver</span>
-                <button class="form-btn-submit">Aceptar</button>
+            <div class="form-row flex justify-between border-t-2 mt-3 pt-3">
+                <span class="form-btn-cancelar" @click.prevent="cancelar(id)" type="text">Volver</span>
+                <button class="form-btn-submit" :disabled="onProcess">
+                    <i v-if="onProcess" class="fas fa-spinner animate-spin mr-2"></i>
+                    <span v-if="onProcess">Procesando...</span>
+                    <span v-else>Aceptar</span>    
+                </button>
             </div> 
 
 
         </form>
     </div>
 </template>
+
+<script>
+
+import { useEmpresaStore } from '@/modules/empresa/store';
+import { useSindicatoStore } from '../../sindicato/store';
+import { useRrhhStore } from '../store';
+import { ref, computed, createApp } from 'vue';
+import Loading from '../../../components/Loading.vue';
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2'
+import Errors from '../../../components/Errors.vue';
+import { createToast } from 'mosha-vue-toastify';
+
+
+
+
+export default {
+
+    setup() {
+        const empresaStore = useEmpresaStore()
+        const rrhhStore = useRrhhStore()
+        const isLoading = ref(true)
+        const onProcess = ref(false)
+        // const empleadoForm = ref({})
+        const router = useRouter()
+        const id = router.currentRoute.value.params.id
+        const categorias = ref([])
+        let cantRecursos = 0
+
+        const optionsToast = (type) => ({
+            type: type,
+            transition:'slide',
+            showIcon: true,
+            timeout: 2000
+
+        })
+        
+
+        const newEmpleado = async() => {
+            const { ok } = await rrhhStore.newEmpleado()
+        }
+
+        const loadEmpleado = async( id ) => {
+            isLoading.value = true
+            const { ok, message } = await rrhhStore.loadEmpleado( id )
+            if ( !ok ) Swal.fire("Error", message, "error")
+            else {
+                 onChangeSindicato(rrhhStore.empleado.categoria.sindicato_id)
+                 isLoading.value = false
+            }
+        }
+
+        const cancelar = async() => {
+            await loadEmpleado( id )
+            rrhhStore.localImage = ''
+            createToast('No se guardaron los cambios', optionsToast('info') )
+        }
+
+        const loadEmpresas = async () => {
+            const { ok, message } = await empresaStore.loadEmpresas()
+            if ( !ok ) Swal.fire("Error", message, "warning")
+            else cantRecursos++
+        };
+
+        const loadSexos = async () => {
+            const { ok, message } = await rrhhStore.loadSexos()
+            if ( !ok ) Swal.fire("Error", message, "warning")
+            else cantRecursos++
+        };
+
+        const loadEstadosCiviles = async () => {
+            const { ok, message } = await rrhhStore.loadEstadosCiviles()
+            if ( !ok ) Swal.fire("Error", message, "warning")
+            else cantRecursos++
+        };
+
+        const cargarRecursos = async() => {
+            await loadEmpresas()
+            await loadSexos()
+            await loadEstadosCiviles()
+            if ( cantRecursos == 3 ) isLoading.value = false
+        }
+
+        const onChangeEmpresa = async ( id ) => {
+            const { ok, message } = await empresaStore.onChangeEmpresa( id )
+            if ( !ok ) Swal.fire("Error", message, "warning")
+            else onChangeSindicato()
+        }
+
+        const onChangeSucursal = async ( id ) => {
+            if ( id ) {
+            const idx = empresaStore.empresa.sucursales.findIndex( ( sucursal ) => sucursal.id == id )
+            rrhhStore.empleado.sucursal =  empresaStore.empresa.sucursales[idx]
+            }
+        }
+
+        const onChangeSindicato = ( id ) => {
+            if ( id ) {
+            const idx = empresaStore.empresa.sindicatos.findIndex( ( sindicato ) => sindicato.id == id )
+            categorias.value = empresaStore.empresa.sindicatos[idx].categorias
+            } 
+        }
+ 
+        const enviarForm = async () => {
+            rrhhStore.errors = []
+            onProcess.value = true
+            if ( rrhhStore.empleado.id != undefined ) {
+                 const { ok, message } = await rrhhStore.updateEmpleado()
+                 if ( !ok ) Swal.fire("Error", message, "error")
+                 else createToast('Se guardó correctamente', optionsToast('success') )
+            }else{
+                const { ok, message } = await rrhhStore.createEmpleado()
+                if ( !ok ) Swal.fire("Error", message, "error")
+                else {
+                    createToast('Se creó correctamente', optionsToast('success') )
+                    router.push({name: 'rrhh_empleado_perfil', params: { id: rrhhStore.empleado.id }})
+                }
+            }
+            onProcess.value = false
+        }
+
+        const created = async() => {
+
+            await cargarRecursos()
+            rrhhStore.errors = []
+
+            if ( id == 'nuevo') {
+                newEmpleado()
+            }else{
+                loadEmpleado(id)
+            }            
+
+        }
+
+        created()
+
+        return {
+            id,
+            cancelar,
+            onChangeSindicato,
+            onChangeEmpresa,
+            onChangeSucursal,
+            isLoading,
+            onProcess,
+            enviarForm,
+            empleadoForm: computed(() => rrhhStore.empleado ),
+            sexos: computed(() => rrhhStore.sexos ),
+            estadosCiviles: computed(() => rrhhStore.estados_civiles ),
+            empresas: computed(() => empresaStore.empresas),
+            sucursales: computed( () => empresaStore.empresa ? empresaStore.empresa.sucursales : [] ),
+            areas: computed( () => empresaStore.empresa ? empresaStore.empresa.areas : [] ),
+            sectores: computed( () => empresaStore.empresa ? empresaStore.empresa.sectores : [] ),
+            sindicatos: computed(() => empresaStore.empresa ? empresaStore.empresa.sindicatos : [] ),
+            errors: computed( ()=> rrhhStore.errors ),
+            categorias,
+        };
+    },
+    components: { Loading, Errors }
+}
+</script>

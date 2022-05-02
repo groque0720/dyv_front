@@ -2,8 +2,8 @@
 <template>
 
     <a href="#" @click.prevent="onLink()">
-        <div class="flex justify-center items-center p-2 px-5 border rounded-full gap-3 shadow-md hover:bg-indigo-50 sm:justify-between"
-            :class="{'isLinkActive': (linkTo == nameRoute) }">
+        <div class="flex justify-center items-center p-2 px-5 border border-gray-400 rounded-full gap-3 shadow-md hover:bg-indigo-100 sm:justify-between"
+            :class="{'isLinkActive': nameRoute.includes(linkTo)  }">
 
             <div><i class="flex-1" :class="[{' fas fa-link ': icon == ''}, icon]" ></i></div>
 
@@ -31,7 +31,7 @@ export default {
     setup( props ) {
         const router = useRouter()
 
-        console.log(router.currentRoute.value.name)
+        // console.log(router.currentRoute.value.name, ' ', props.config.to );
 
         return {
             nameRoute: computed(() => router.currentRoute.value.name),

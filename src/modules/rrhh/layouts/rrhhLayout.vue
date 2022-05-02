@@ -17,6 +17,7 @@ import ListCardItem from "../components/ListCardItem.vue"
 
 
 export default {
+    name: 'LayoutRRHH',
     setup() {
         return {};
     },

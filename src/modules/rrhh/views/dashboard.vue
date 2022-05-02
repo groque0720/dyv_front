@@ -45,6 +45,7 @@ import CardEstadoPersonal from "../components/CardEstadoPersonal.vue";
 
 
 export default {
+    name: 'Dashboard',
     setup() {
 
     const chartOptions = ref({

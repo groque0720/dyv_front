@@ -45,8 +45,8 @@ export default {
         const { signInUser } = authStore;
 
         const userForm = ref({
-            email: 'test1@test.com',
-            password: '123456'
+            email: 'gomezroque@hotmail.com',
+            password: 'derkayvargas'
         });
 
 

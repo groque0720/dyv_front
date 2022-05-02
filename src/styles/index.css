@@ -32,6 +32,10 @@ body {
     @apply bg-slate-50 font-segoe text-gray-700 text-sm m-0 p-0 box-border
 }
 
+.procesando {
+    @apply fas fa-spinner animate-spin
+}
+
 .btn {
     @apply  w-full 
             text-white 
@@ -50,10 +54,22 @@ body {
             dark:focus:ring-blue-800 
 }
 
+.btn-fecha-paginacion {
+    @apply border rounded bg-gray-100 flex justify-center items-center p-2
+}
+
+.btn-fecha-paginacion:active {
+    @apply bg-gray-400 text-white
+}
+
 
 
 table {
     @apply table-auto w-full
+}
+
+table thead {
+    @apply bg-gray-100
 }
 
 table thead tr {
@@ -62,6 +78,10 @@ table thead tr {
 
 table tbody tr {
     @apply cursor-pointer border-b hover:bg-indigo-100
+}
+
+table tbody tr:last-child {
+    @apply border-b-0
 }
 
 table tbody tr td {

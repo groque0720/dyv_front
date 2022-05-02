@@ -1,6 +1,6 @@
 <template>
 
-    <nav class=" h-12 w-full shadow-lg p-2 fixed z-10 bg-white border-b-2">
+    <nav class=" h-12 w-full shadow-lg p-2 fixed z-20 bg-white border-b-2">
 
         <div class=" flex justify-between items-center">
             
@@ -42,7 +42,6 @@
 
 import { useAuthStore } from "../modules/auth/store"
 import Aplicacion from "../components/Aplicacion.vue";
-
 
 export default {
     setup() {

@@ -1,3 +1,4 @@
+
 export default {
     name: 'rrhh',
     component:  () => import('../layouts/rrhhLayout.vue'),
@@ -9,9 +10,9 @@ export default {
             component:  () => import('../views/dashboard.vue'),
         },
         {
-            path:'nomina',
-            name: 'rrhh_nomina',
-            component:  () => import('../views/nomina.vue'),
+            path:'empleados',
+            name: 'rrhh_empleados',
+            component:  () => import('../views/empleados.vue'),
         },
         {
             path: 'empleado/:id',
@@ -24,7 +25,7 @@ export default {
             },
             children: [
                 {
-                    path: 'perfil',
+                    path: '',
                     name: 'rrhh_empleado_perfil',
                     component: () => import('../views/empleadoPerfil.vue')
                 },
@@ -41,7 +42,7 @@ export default {
                 {
                     path: 'puestos',
                     name: 'rrhh_empleado_puestos',
-                    component: () => import('../views/puestos.vue')
+                    component: () => import('../views/empleadoPuestos.vue')
                 },
                 {
                     path: 'talles',
@@ -78,33 +79,32 @@ export default {
                 {
                     path: 'empresas',
                     name: 'rrhh_configuracion_empresas',
-                    component: () => import('../../empresa/views/empresas.vue')
-                    // component: () => import('../views/empresas.vue')
+                    component: () => import('../../empresa/views/empresas.vue'),
+                },
+                {
+                    path: 'sindicatos',
+                    name: 'rrhh_configuracion_sindicatos',
+                    component: () => import('../../sindicato/views/sindicatos.vue'),
                 },
                 {
                     path: 'sexos',
-                    name: 'rrhh_sexos',
-                    component: () => import('../views/sexos.vue')
+                    name: 'rrhh_configuracion_sexos',
+                    component: () => import('../views/configuracion/sexos.vue')
+                },
+                {
+                    path: 'estados_civiles',
+                    name: 'rrhh_configuracion_estados_civiles',
+                    component: () => import('../views/configuracion/estadoCiviles.vue')
                 },
                 {
                     path: 'vinculos',
-                    name: 'rrhh_vinculos',
-                    component: () => import('../views/vinculos.vue')
-                },
-                {
-                    path: 'puestos',
-                    name: 'rrhh_puestos',
-                    component: () => import('../views/puestos.vue')
-                },
-                {
-                    path: 'areas',
-                    name: 'rrhh_areas',
-                    component: () => import('../views/areas.vue')
+                    name: 'rrhh_configuracion_vinculos',
+                    component: () => import('../views/configuracion/vinculos.vue')
                 },
                 {
                     path: 'licencias',
-                    name: 'rrhh_licencias',
-                    component: () => import('../views/licencias.vue')
+                    name: 'rrhh_configuracion_licencias',
+                    component: () => import('../views/configuracion/licencias.vue')
                 }                                
             ]
         },

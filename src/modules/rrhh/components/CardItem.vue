@@ -2,7 +2,7 @@
 <template>
     <div
         class="p-2 bg-indigo-50 rounded hover:cursor-pointer border hover:bg-indigo-200 shadow-md"
-        :class="{'font-semibold bg-indigo-200 border-2 border-indigo-200': to ==  nameRoute }"
+        :class="{'isLinkActive': nameRoute.includes(linkTo)  }"
         @click="link()">
         <div class="flex  justify-center lg:justify-between items-center gap-4">
             <div class="w-8 h-8 flex justify-center items-center bg-white rounded-full p-3 shadow-md">
@@ -21,6 +21,7 @@ import { useRouter } from 'vue-router';
 import { computed } from 'vue'
 
 export default {
+    name: 'CardItem',
     props:{
         item: Object
     },
@@ -30,11 +31,13 @@ export default {
         // const nameRoute = router.currentRoute.value.name
         // console.log(router.currentRoute.value);
 
+        //  console.log(router.currentRoute.value.name, ' ', props.item.to );
+
         return {
             titulo: props.item.title,
             icono: props.item.icono,
             color: props.item.color,
-            to: props.item.to,
+            linkTo: props.item.to,
             nameRoute: computed(() => router.currentRoute.value.name),
             link: () => router.push({ name: props.item.to})
         }

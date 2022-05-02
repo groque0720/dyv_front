@@ -39,6 +39,7 @@ import { ref } from 'vue';
 
 
 export default {
+    name: 'CardEstado',
     props:{
         estado: Object
     },
