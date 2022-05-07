@@ -25,12 +25,8 @@ export default {
 
     props:['title','clase'],
     setup( props, context ) {
-
-        console.log( {props, context} )
-
         return {
             newTitle: props.title?.toUpperCase(),
-            elPepe: () => console.log('el pepe')
         }
 
     }

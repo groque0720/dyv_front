@@ -1,8 +1,19 @@
 
 export default () => ({
     empleados: [],
+    superiores: [],
     localImage: '',
-    empleado:{},
+    empleado:{
+            puestos: [],
+            nombre: '',
+            apellido: '',
+            sucursal: {
+                nombre: ''
+            },
+            supervisor: {
+                nombre_completo: ''
+            },
+    },
     sexos:[],
     vinculos:[],
     puestos:[],

@@ -11,6 +11,14 @@
     @apply fas fa-save
 }
 
+.icon-search {
+    @apply fas fa-search
+}
+
+.icon-cerrar {
+    @apply far fa-times-circle
+}
+
 .icon-left {
     @apply fas fa-chevron-left
 }
@@ -77,6 +85,10 @@
 
 .icon-puesto {
     @apply fas fa-street-view text-purple-600 
+}
+
+.icon-reemplazo {
+    @apply fas fa-people-carry text-green-600 
 }
 
 .icon-medida {

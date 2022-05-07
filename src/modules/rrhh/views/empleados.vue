@@ -9,7 +9,7 @@
        <div class="flex justify-end">
             <div class="py-1">
                 <a @click="newEmpleado()" class="text-indigo-500 cursor-pointer hover:font-extrabold ">
-                    <i class="fas fa-user-plus"></i> Crear Empleado
+                    <i class="fas fa-user-plus"></i> Crear Colaborador
                 </a>
             </div>
        </div>
@@ -18,7 +18,7 @@
         <div class="">
             <form action="">
                 <div class="form-row">
-                    <input class="form-input" type="text" placeholder="Buscar empleado" v-model="search">
+                    <input class="form-input" type="search" placeholder="Buscar Colaborador (Apellido Nombre)" v-model="search">
                 </div>
             </form>
         </div> 
@@ -42,9 +42,11 @@
             <table v-else class=" table-auto w-full">
                 <thead class="">
                     <tr class="border-b-2 h-9">
-                        <th>Empleado</th>
-                        <th>Empresa</th>
-                        <th>Puestos</th>
+                        <th>Colaborador</th>
+                        <th>Empresa/Sucursal</th>
+                        <th>Área</th>
+                        <th>Puesto/s</th>
+                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Superior</th>
                         <th>Reemplazo</th>
@@ -77,18 +79,42 @@
                             </div>
                         </td>
 
+                        <!-- Empresa y Sucursal -->
+                        <td>
+                            <div class="flex flex-col justify-center items-center">
+                                <span>{{ empleado.area.area }}</span>
+                            </div>
+                        </td>
+
                         <!-- Puesto -->
                         <td>
                             <div class="flex flex-col justify-center items-center">
                                 <span class="text-xs" v-for="puesto in empleado.puestos" :key="puesto.id">
-                                    {{ puesto.puesto }}</span>
+                                    {{ puesto.puesto.puesto }}</span>
+                            </div>
+                        </td>
+
+                        <!-- Categoria -->
+                        <td>
+                            <div class="flex justify-center items-center">
+                                <span class="text-xs">{{ empleado.categoria.categoria }}</span>
                             </div>
                         </td>
 
                         <!-- Estado-->
                         <td>
-                            <div class="flex items-center justify-center">
-                                <span class="px-3 rounded border border-green-400 bg-green-100 text-green-500">
+                            <div class="flex flex-col gap-1 items-center justify-center">
+                                <template v-for="licencia in empleado.licencias" :key="empleado.id+licencia.id">
+                                    <div class="rounded"
+                                         :style="`color: ${ licencia.licencia_tipo.icono_color };
+                                                background-color: ${ licencia.licencia_tipo.icono_color };
+                                                border: 1px ${ licencia.licencia_tipo.icono_color } solid;`"
+                                                >
+                                            <div class="px-3 py-1 rounded bg-white bg-opacity-80">{{ licencia.licencia_tipo.licencia_tipo }}</div>
+                                    </div>
+                                </template>
+                                <span v-if="!empleado.licencias.length" class="px-3 py-1
+                                 rounded border border-green-400 text-green-500">
                                     Activo
                                 </span>
                             </div>
@@ -100,10 +126,10 @@
                             <div class="flex justify-center">
                                 <div class="flex items-center">
                                     <img v-if="empleado.supervisor != null "
-                                         :src="empleado.supervisor.img"
-                                         :alt="empleado.supervisor.nombre"
-                                         :title="empleado.supervisor.nombre"
-                                         class=" h-8 w-8 rounded-full border-2 border-white shadow"  >
+                                         :src="baseURL+empleado.supervisor.img"
+                                         :alt="empleado.supervisor.nombre_completo"
+                                         :title="empleado.supervisor.nombre_completo"
+                                         class=" h-8 w-8 rounded-full border-2 border-white shadow object-cover"  >
                                     <span v-else>-</span>
                                 </div>
                             </div>
@@ -112,13 +138,16 @@
                         <!-- Reemplazo -->
                         <td>
                             <div class="flex justify-center">
-                                <template v-for="(reemplazo,idx) in empleado.reemplazos" :key="reemplazo.id">
-                                    <div class="flex items-center" :class="{'-ml-2': idx > 0 }">
-                                        <img    :src="reemplazo.img"
-                                                :alt="reemplazo.nombre"
-                                                :title="reemplazo.nombre"
-                                                class=" h-8 w-8 rounded-full border-2 border-white shadow" >
-                                    </div>
+                                <template v-for="(puesto, idx) in empleado.puestos" :key="puesto.id">
+                                    <template v-for="reemplazo in puesto.reemplazos" :key="reemplazo.user_id">
+                                    <!-- {{ reemplazo.reemplazo.nombre_completo }} -->
+                                        <div class="flex items-center" :class="{'-ml-2': idx > 0 }">
+                                            <img    :src="baseURL+reemplazo.reemplazo.img"
+                                                    :alt="reemplazo.reemplazo.nombre_completo"
+                                                    :title="reemplazo.reemplazo.nombre_completo"
+                                                    class=" h-8 w-8 rounded-full border-2 border-white shadow object-cover" >
+                                        </div>
+                                    </template>
                                  </template>
                             </div> 
                         </td>
@@ -158,14 +187,14 @@ export default {
         const currentPage = ref()
         const search = ref(null)
 
-        const loadEmpleados = async( page = 1, q ='' ) => {
-            console.log( page )
+        const loadEmpleados = async( page = 1, q = '' ) => {
+            // console.log( page )
             if ( page <= 0 ) page = 1
-            // isLoading.value = true
+            if ( page > 1) search.value = '' 
             const { ok, message } = await rrhhStore.loadEmpleados( page, q )
             if ( !ok ) Swal.fire("Atención", message, "info")
-            else {
-                currentPage.value = page
+            else  {
+               currentPage.value = page
                 isLoading.value = false
             }
         }
