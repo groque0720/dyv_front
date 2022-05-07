@@ -145,7 +145,7 @@ export default {
             newEstadoCivil,
             onClickEstadoCivil,
             submitForm,
-            estados_civiles: computed(() => rrhhStore.estados_civiles),
+            estados_civiles: computed(() => rrhhStore.estados_civiles ),
             closeModalEstadoCivil: (() => isOpenModalEstadoCivil.value = false)
         };
     },

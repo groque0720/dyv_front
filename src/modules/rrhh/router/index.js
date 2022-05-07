@@ -42,7 +42,18 @@ export default {
                 {
                     path: 'puestos',
                     name: 'rrhh_empleado_puestos',
-                    component: () => import('../views/empleadoPuestos.vue')
+                    component: () => import('../views/empleadoPuestos.vue'),
+                },
+                {
+                    path: 'puestos/:puesto_id',
+                    name: 'rrhh_empleado_puesto',
+                    component: () => import('../views/empleadoPuestosPuesto.vue'),
+                    props: ( route ) => {
+                        return {
+                            id: route.params.id,
+                            puesto_id: route.params.puesto_id
+                        }
+                    }
                 },
                 {
                     path: 'talles',

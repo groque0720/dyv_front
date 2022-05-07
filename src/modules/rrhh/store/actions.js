@@ -3,22 +3,41 @@ import dyvApi from "../../../api/dyvApi";
 import { useEmpresaStore } from "../../empresa/store";
 
 
+const iniciarEmpleado = () => {
+    const rrhhStore = useRrhhStore()
+    rrhhStore.empleado = {
+        puestos: [],
+        nombre: '',
+        apellido: '',
+        sucursal: {
+            nombre: ''
+        },
+        supervisor: {
+            nombre_completo: ''
+        }
+    }
+}
+
+
+
+
+
 const loadEmpleados= async( page, q = '' ) => {
     const rrhhStore = useRrhhStore();
-    rrhhStore.empleado = {}
+    // rrhhStore.empleado = {}
     try {
 
         const { data } = await dyvApi.get(`/usuarios`,{
             params:{ page, q }
         });
 
+        // rrhhStore.empleados = data;
+
         if ( data.length > 0 ) {
             rrhhStore.empleados = data;
         } else if (page > 0) {
             return { ok: false, message: 'No hay mas registros' }
         } 
-
-        console.log(q)
 
         return { ok: true, message: 'Cargando' }
        
@@ -30,10 +49,7 @@ const loadEmpleados= async( page, q = '' ) => {
 const newEmpleado = async() => {
     const rrhhStore = useRrhhStore()
     try {
-        rrhhStore.empleado = {}
-        rrhhStore.empleado.nombre = ''
-        rrhhStore.empleado.apellido = ''
-        rrhhStore.empleado.sucursal.nombre = ''
+        iniciarEmpleado()
         return { ok: true }
     } catch (error) {
         return { ok: false, message: error } 
@@ -43,13 +59,12 @@ const newEmpleado = async() => {
 const loadEmpleado = async( id ) => {
     const rrhhStore = useRrhhStore()
     const empresaStore = useEmpresaStore()
+    iniciarEmpleado()
     try {
         const { data } = await dyvApi.get(`/usuarios/${ id }`);
         rrhhStore.empleado = data;
         rrhhStore.empleado.empresa_id = data.sucursal.empresa_id
         rrhhStore.empleado.sindicato_id = data.categoria.sindicato_id
-
-        // console.log( rrhhStore.empleado )
 
         await empresaStore.onChangeEmpresa( rrhhStore.empleado.empresa_id )
 
@@ -60,6 +75,27 @@ const loadEmpleado = async( id ) => {
 }
 
 
+const loadSuperiores = async( id ) => {
+    const rrhhStore = useRrhhStore()
+    // const empresaStore = useEmpresaStore()
+    try {
+        const { data } = await dyvApi.get(`/usuarios/superiores/${ id }`)
+        rrhhStore.superiores = data
+        return { ok: true, message: 'Cargando', resultSuperiores: data }
+    } catch (error) {
+        return { ok: false, message: error } 
+    }
+}
+
+const getSuperiorSearch = ( superiorSearch ) => {
+
+    const rrhhStore = useRrhhStore()
+    if ( superiorSearch.length === 0 ){
+        return rrhhStore.superiores
+    }  
+    return rrhhStore.superiores.filter( superior => superior.nombre_completo.toLowerCase().includes( superiorSearch.toLowerCase() ) )
+}
+
 const updateEmpleado = async() => {
 
     const rrhhStore = useRrhhStore()
@@ -68,7 +104,6 @@ const updateEmpleado = async() => {
         const { data } = await dyvApi.put(`/usuarios/${ empleado.id }`, empleado );
         return { ok: true, message: 'Cargando' }
     } catch (error) {
-        // console.log(error.response)
         if (error.response.data.errors != undefined ) {
             rrhhStore.errors = error.response.data.errors
             return { ok: false, message: 'Por favor verifique los datos ingresados' }
@@ -94,8 +129,6 @@ const saveImage = async( archivo ) => {
         return { ok: true, message: 'Cargando' }
 
     } catch (error) {
-
-        console.log( error )
 
         return { ok: false, message: error }  
         // if (error.response.data.errors != undefined ) {
@@ -245,13 +278,9 @@ const createLicencia = async( licenciaForm ) => {
     try {
         const rrhhStore = useRrhhStore();
         const { data } = await dyvApi.post(`/licencias`, licenciaForm);
-
-        // console.log(data)
-        
         rrhhStore.licencias.push( data.licencia )
         return { ok: true }
     } catch (error) {
-        // console.log(error.response.data.msg )
         return { ok: false, message: error.response.data.msg }    
     }
 }
@@ -271,7 +300,6 @@ const loadEstadosCiviles= async() => {
     const rrhhStore = useRrhhStore();
     try {
         const { data } = await dyvApi.get(`/estados_civiles`);
-        // console.log(data);
         rrhhStore.estados_civiles = data.estado_civiles;
         return { ok: true }
        } catch (error) {
@@ -310,7 +338,61 @@ const editEstadoCivil = async( estadoCivilForm ) => {
     }
 }
 
+const getPuestos = async() => {
 
+    const rrhhStore = useRrhhStore();
+    const empresa_id = rrhhStore.empleado.sucursal.empresa_id
+
+    try {
+        const { data } = await dyvApi.get(`/puestos/`, { params: { empresa_id } });
+        rrhhStore.puestos = data
+        // console.log( data )
+        return { ok: true }
+    } catch (error) {
+        return { ok: false, message: error.response.data.msg }  
+    }
+
+}
+
+
+const getPuestoSearch = ( puestoSearch ) => {
+
+    const rrhhStore = useRrhhStore()
+    if ( puestoSearch.length === 0 ){
+        return rrhhStore.puestos
+    }  
+    return rrhhStore.puestos.filter( puesto => puesto.puesto.toLowerCase().includes( puestoSearch.toLowerCase() ) )
+}
+
+
+const createEmpleadoPuesto = async( puestoForm ) => {
+    const rrhhStore = useRrhhStore()
+    try {
+        // console.log( puestoForm )
+        const { data } = await dyvApi.post(`/puestos/puesto_empleado`, puestoForm.user_puestos );
+        // console.log( data )
+        rrhhStore.empleado.puestos.push(data)
+        return { ok: true, puesto:data }
+    } catch (error) {
+        return { ok: false, message: error.response.data.msg }   
+    }
+}
+
+const updateEmpleadoPuesto = async( puestoForm ) => {
+    const rrhhStore = useRrhhStore()
+
+    console.log(puestoForm);
+    try {
+        const { data } = await dyvApi.put(`/puestos/puesto_empleado/${ puestoForm.user_puestos.id }`, puestoForm.user_puestos )
+        // rrhhStore.empleado = data
+        
+        return { ok: true, puesto:data }
+    } catch (error) {
+
+        console.log(error.response.data )
+        return { ok: false, message: error.response.data.msg }   
+    }
+}
 
 
 
@@ -318,6 +400,8 @@ export default {
     loadEmpleados,
     newEmpleado,
     loadEmpleado,
+    loadSuperiores,
+    getSuperiorSearch,
     updateEmpleado,
     saveImage,
     createEmpleado,
@@ -337,5 +421,9 @@ export default {
     selectedEstadoCivil,
     createEstadoCivil,
     editEstadoCivil,
+    getPuestos,
+    getPuestoSearch,
+    createEmpleadoPuesto,
+    updateEmpleadoPuesto
     
 }
