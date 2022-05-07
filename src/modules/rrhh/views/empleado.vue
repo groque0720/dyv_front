@@ -13,7 +13,8 @@
                             
                             <div v-if="localImage" class="relative">
                                 <div class="w-24 h-24 absolute flex justify-center items-center ">
-                                    <i @click="saveImage( $event )" class="absolute icon-guardar text-white text-4xl opacity-70 cursor-pointer"></i>
+                                    <i @click="saveImage( $event )" class="absolute icon-guardar text-indigo-500 text-4xl opacity-70 cursor-pointer"></i>
+                                    <i v-if="isLoadingImg" class="fas fa-spinner animate-spin text-2xl text-white"></i>
                                 </div>
                                 <img  
                                 class="w-24 h-24 object-cover"
@@ -34,7 +35,9 @@
                     <div class="flex flex-col items-center pb-5">
                         <span class=" font-semibold text-indigo-500">{{ empleado.nombre }} {{ empleado.apellido }}</span>
                         <span>{{ empleado.sucursal != undefined ? empleado.sucursal.nombre : '-' }}</span>
-                        <!-- <span v-if="empleado.puestos.length > 1 ">{{  empleado.puestos[0].puesto  }}</span> -->
+                        <template v-if="empleado.puestos.length > 1 ">
+                            <span v-for="puesto in empleado.puestos" class=" italic" >{{  puesto.puesto.puesto  }}</span>
+                        </template>
                     </div>
                 </template>
             </div>
@@ -136,6 +139,7 @@ import { createToast } from 'mosha-vue-toastify';
         const router = useRouter()
         const rrhhStore = useRrhhStore()
         const file = ref(null)
+        const isLoadingImg =ref(false)
 
         const optionsToast = (type) => ({
             type: type,
@@ -147,7 +151,7 @@ import { createToast } from 'mosha-vue-toastify';
 
         const loadEmpleado = async( id ) => {
             if ( id != 'nuevo') {
-                await rrhhStore.loadEmpleado( id )
+                // await rrhhStore.loadEmpleado( id )
             }
         }
 
@@ -164,19 +168,24 @@ import { createToast } from 'mosha-vue-toastify';
         }
 
         const saveImage = async() => {
+            isLoadingImg.value = true
             const archivo = file.value
             const { ok, message } = await rrhhStore.saveImage(archivo)
             if (!ok ) createToast('Ocurrio un error', optionsToast('danger') )
-            else createToast('Se guardó Correctamente', optionsToast('success') )
+            else {
+                createToast('Se guardó Correctamente', optionsToast('success') )
+                isLoadingImg.value = false
+            }
         }
 
 
-        loadEmpleado(props.id)
+        // loadEmpleado(props.id)
 
         return {
             id: props.id,
             onSelectedImage,
             saveImage,
+            isLoadingImg,
             localImage: computed( () => rrhhStore.localImage ),
             onLink: (nameRoute) => router.push({ name: nameRoute }),
             empleado: computed( () => rrhhStore.empleado ),

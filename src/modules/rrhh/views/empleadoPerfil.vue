@@ -83,7 +83,7 @@
                     <label class="required" for="">Localidad</label>
                     <input class="form-input" type="text" v-model="empleadoForm.localidad" required>
                 </div>
-                <div class="">
+                <div class="flex-1">
                     <label class="required" for="">Provincia</label>
                     <input class="form-input" type="text" v-model="empleadoForm.provincia" required>
                 </div>
@@ -108,13 +108,18 @@
                     <Errors :errors="errors" :field="'email'"></Errors>
                 </div>
             </div>
+
+            <div class="form-row my-2">
+                <hr class="border border-indigo-300">
+            </div>
+
             <div class="form-row flex justify-between gap-3">
-                <div class="">
+                <div class="flex-1">
                     <label class="required" for="">Nro Legajo</label>
                     <input class="form-input" type="text" name="nro_legajo" v-model="empleadoForm.nro_legajo" required>
                     <Errors :errors="errors" :field="'nro_legajo'"></Errors>
                 </div>
-                <div class="">
+                <div class="flex-1">
                     <label class="required" for="">Fecha Ingreso</label>
                     <input class="form-input" type="date" v-model="empleadoForm.fecha_ingreso" required>
                 </div>
@@ -124,6 +129,7 @@
                     <Errors :errors="errors" :field="'username'"></Errors>
                 </div>   
             </div>
+
             <div class="form-row flex justify-between gap-3">
                 <div class="flex-1">
                     <label class="required" for="">Empresa</label>
@@ -175,8 +181,45 @@
                         </template>
                     </select>
                 </div>
+                <div class="flex-1 flex flex-col ">
+                    <label class="" for="">Superior</label>
+                    <div class="flex justify-between items-center gap-2" @click="onClickSupervisor(empleadoForm.id)">
+                        <input class="form-input" v-model="empleadoForm.supervisor.nombre_completo"  readonly >
+                        <i class="icon-search cursor-pointer"></i>
+
+                        <input class="form-input" type="hidden" name="supervisor_id" v-model="empleadoForm.supervisor_id">
+                    </div>
+
+
+                    <Modal  v-if="isOpenModalSupervisor" @on:close="closeModalSupervisor" clase=" w-full sm:w-10/12 md:w-9/12 lg:w-7/12">
+                        <template v-slot:body>
+                        <div class="bg-white min-h-60 max-h-80">
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center gap-2"><i class="icon-search text-xl"></i><span>Buscar Superior</span></div>
+                                <span><i class="icon-cerrar text-2xl cursor-pointer" @click="isOpenModalSupervisor=false"></i></span>
+                            </div>
+                            <input class="form-input mb-1" type="search"  placeholder="Apellido Nombre" v-model="searchSupervisor">
+                                <div class="bg-white border rounded w-full border-indigo-300 max-h-60 overflow-x-auto">
+                                    <Loading v-if="isLoadingSupervisor"></Loading>
+                                    <template v-else>
+                                        <div v-for="supervisor in supervisores" :key="supervisor.id" @click="onSelectedSupervisor(supervisor)"
+                                                class="flex justify-between items-center gap-3 p-2 border-b border-indigo-300 cursor-pointer hover:bg-indigo-50">
+                                            <img class="w-8 h-8 rounded-full object-cover"  :src="baseURL+supervisor.img" alt="">
+                                            <span class="flex-1">{{ supervisor.nombre_completo }}</span>
+                                        </div>
+                                    </template>
+                                </div>                    
+                        </div>
+                        </template>
+                    </Modal>
+
+
+
+                    <!-- <input class="form-input" type="text" name="email" v-model="empleadoForm.supervisor_id" required> -->
+                    <!-- <input type="" v-model=""> -->
+                </div>
             </div>
-            <div class="form-row flex justify-between border-t-2 mt-3 pt-3">
+            <div class="form-row flex justify-between border-indigo-300 border-t-2 mt-3 pt-3">
                 <span class="form-btn-cancelar" @click.prevent="cancelar(id)" type="text">Volver</span>
                 <button class="form-btn-submit" :disabled="onProcess">
                     <i v-if="onProcess" class="fas fa-spinner animate-spin mr-2"></i>
@@ -195,12 +238,13 @@
 import { useEmpresaStore } from '@/modules/empresa/store';
 import { useSindicatoStore } from '../../sindicato/store';
 import { useRrhhStore } from '../store';
-import { ref, computed, createApp } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Loading from '../../../components/Loading.vue';
 import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2'
 import Errors from '../../../components/Errors.vue';
 import { createToast } from 'mosha-vue-toastify';
+import Modal from '../../../components/Modal.vue';
 
 
 
@@ -217,6 +261,10 @@ export default {
         const id = router.currentRoute.value.params.id
         const categorias = ref([])
         let cantRecursos = 0
+        const isOpenModalSupervisor = ref(false)
+        // const supervisores = ref([])
+        const searchSupervisor = ref('')
+        const isLoadingSupervisor = ref(false)
 
         const optionsToast = (type) => ({
             type: type,
@@ -226,9 +274,11 @@ export default {
 
         })
         
-
         const newEmpleado = async() => {
+            isLoading.value = true
             const { ok } = await rrhhStore.newEmpleado()
+            if ( !ok ) Swal.fire("Error", message, "error")
+            else isLoading.value = false
         }
 
         const loadEmpleado = async( id ) => {
@@ -244,7 +294,7 @@ export default {
         const cancelar = async() => {
             await loadEmpleado( id )
             rrhhStore.localImage = ''
-            createToast('No se guardaron los cambios', optionsToast('info') )
+            createToast('No se guardaron los cambios', optionsToast('warning') )
         }
 
         const loadEmpresas = async () => {
@@ -285,11 +335,28 @@ export default {
             }
         }
 
+        const onClickSupervisor = async( id ) => {
+            isLoadingSupervisor.value = true
+            searchSupervisor.value = ''
+            const { ok, message } = await rrhhStore.loadSuperiores( id )
+            if ( !ok ) Swal.fire("Error", message, "error")
+            isOpenModalSupervisor.value = true
+            isLoadingSupervisor.value = false
+        }
+
+
         const onChangeSindicato = ( id ) => {
             if ( id ) {
             const idx = empresaStore.empresa.sindicatos.findIndex( ( sindicato ) => sindicato.id == id )
             categorias.value = empresaStore.empresa.sindicatos[idx].categorias
             } 
+        }
+
+        const onSelectedSupervisor = ( superior ) => {
+            rrhhStore.empleado.supervisor_id = superior.id
+            rrhhStore.empleado.supervisor.nombre_completo = superior.nombre_completo
+            isOpenModalSupervisor.value = false
+            createToast('Supervisor Seleccionado', optionsToast('info') )
         }
  
         const enviarForm = async () => {
@@ -316,12 +383,14 @@ export default {
             rrhhStore.errors = []
 
             if ( id == 'nuevo') {
-                newEmpleado()
+                await newEmpleado()
             }else{
-                loadEmpleado(id)
+                await loadEmpleado(id)
             }            
 
         }
+
+
 
         created()
 
@@ -331,6 +400,8 @@ export default {
             onChangeSindicato,
             onChangeEmpresa,
             onChangeSucursal,
+            isOpenModalSupervisor,
+            onClickSupervisor,
             isLoading,
             onProcess,
             enviarForm,
@@ -342,10 +413,17 @@ export default {
             areas: computed( () => empresaStore.empresa ? empresaStore.empresa.areas : [] ),
             sectores: computed( () => empresaStore.empresa ? empresaStore.empresa.sectores : [] ),
             sindicatos: computed(() => empresaStore.empresa ? empresaStore.empresa.sindicatos : [] ),
+            supervisores: computed( () => rrhhStore.getSuperiorSearch( searchSupervisor.value ) ),
+            searchSupervisor,
+            isLoadingSupervisor,
+            onSelectedSupervisor,
             errors: computed( ()=> rrhhStore.errors ),
             categorias,
+            baseURL: import.meta.env.VITE_API_URL_FILES,
+            openModalSupervisor: () => isOpenModalSupervisor.value = true,
+            closeModalSupervisor: () => isOpenModalSupervisor.value = false,
         };
     },
-    components: { Loading, Errors }
+    components: { Loading, Errors, Modal }
 }
 </script>
