@@ -21,7 +21,7 @@
                     <tr>
                         <th>Puestos</th>
                         <th>Fec. Inicio</th>
-                        <th>Fec. Fin</th>
+                        <!-- <th>Fec. Fin</th> -->
                         <th>Reemplazo</th>
                         <th>Descrip.</th>
                     </tr>
@@ -42,11 +42,11 @@
                                     {{ getFecha(puesto.fecha_inicio) }}
                                 </div>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <div class="flex justify-center gap-3">
                                     {{ getFecha(puesto.fecha_fin) }}
                                 </div>
-                            </td>
+                            </td> -->
                             <td>
                                 <div v-for="reemplazo in puesto.reemplazos" :key="reemplazo.user_id" 
                                     class="flex justify-start items-center gap-1">

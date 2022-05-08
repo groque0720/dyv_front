@@ -35,7 +35,7 @@
                     <div class="flex flex-col items-center pb-5">
                         <span class=" font-semibold text-indigo-500">{{ empleado.nombre }} {{ empleado.apellido }}</span>
                         <span>{{ empleado.sucursal != undefined ? empleado.sucursal.nombre : '-' }}</span>
-                        <template v-if="empleado.puestos.length > 1 ">
+                        <template v-if="empleado.puestos.length >= 1 ">
                             <span v-for="puesto in empleado.puestos" class=" italic" >{{  puesto.puesto.puesto  }}</span>
                         </template>
                     </div>
@@ -53,17 +53,17 @@
 
                 <div class="relative flex flex-col gap-2" :class="{ 'text-gray-500': empleado.id != null}">
                     <div v-if="empleado.id == null " class="w-full h-full bg-white absolute bg-opacity-50"></div>
-                    <ButtonLink
+                    <!-- <ButtonLink
                         :config="{
                                 title: 'Preocupacional',
                                 icon:' icon-preocupacional ',
-                                to: 'rrhh_empleado_preocupacional' }"></ButtonLink>
-
+                                to: 'rrhh_empleado_preocupacional' }"></ButtonLink> -->
+<!-- 
                     <ButtonLink
                         :config="{
                                 title: 'Grupo Familiar',
                                 icon:' icon-familia ',
-                                to: 'rrhh_empleado_grupo_familiar' }"></ButtonLink>
+                                to: 'rrhh_empleado_grupo_familiar' }"></ButtonLink> -->
 
                     <ButtonLink
                         :config="{
@@ -71,23 +71,23 @@
                                 icon:' icon-puesto ',
                                 to: 'rrhh_empleado_puestos' }"></ButtonLink>
 
-                    <ButtonLink
+                    <!-- <ButtonLink
                         :config="{
                                 title: 'Talles/Medidas',
                                 icon:' icon-medida ',
-                                to: 'rrhh_empleado_medidas' }"></ButtonLink>
+                                to: 'rrhh_empleado_medidas' }"></ButtonLink> -->
                     
-                    <ButtonLink
+                    <!-- <ButtonLink
                         :config="{
                                 title: 'Entrega de Uniforme',
                                 icon:' icon-uniforme ',
-                                to: 'rrhh_empleado_uniformes' }"></ButtonLink>
+                                to: 'rrhh_empleado_uniformes' }"></ButtonLink> -->
 
-                    <ButtonLink
+                    <!-- <ButtonLink
                         :config="{
                                 title: 'Capacitacion',
                                 icon:' icon-capacitacion ',
-                                to: 'rrhh_empleado_capacitaciones' }"></ButtonLink>
+                                to: 'rrhh_empleado_capacitaciones' }"></ButtonLink> -->
 
                     <ButtonLink
                         :config="{
@@ -95,11 +95,11 @@
                                 icon:' icon-licencia ',
                                 to: 'rrhh_empleado_licencias' }"></ButtonLink>
 
-                    <ButtonLink
+                    <!-- <ButtonLink
                         :config="{
                                 title: 'Actividades',
                                 icon:' icon-actividad ',
-                                to: 'rrhh_empleado_actividades' }"></ButtonLink>
+                                to: 'rrhh_empleado_actividades' }"></ButtonLink> -->
                 </div>
                 
 
