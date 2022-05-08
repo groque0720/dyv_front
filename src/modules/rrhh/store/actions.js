@@ -367,9 +367,11 @@ const getPuestoSearch = ( puestoSearch ) => {
 
 const createEmpleadoPuesto = async( puestoForm ) => {
     const rrhhStore = useRrhhStore()
+    const user_id = rrhhStore.empleado.id
+
     try {
         // console.log( puestoForm )
-        const { data } = await dyvApi.post(`/puestos/puesto_empleado`, puestoForm.user_puestos );
+        const { data } = await dyvApi.post(`/puestos/puesto_empleado`, {  user_id, puesto:puestoForm } );
         // console.log( data )
         rrhhStore.empleado.puestos.push(data)
         return { ok: true, puesto:data }
@@ -383,7 +385,7 @@ const updateEmpleadoPuesto = async( puestoForm ) => {
 
     console.log(puestoForm);
     try {
-        const { data } = await dyvApi.put(`/puestos/puesto_empleado/${ puestoForm.user_puestos.id }`, puestoForm.user_puestos )
+        const { data } = await dyvApi.put(`/puestos/puesto_empleado/${ puestoForm.id }`, puestoForm )
         // rrhhStore.empleado = data
         
         return { ok: true, puesto:data }
