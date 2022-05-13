@@ -68,7 +68,9 @@
                                         <span class="text-indigo-500 font-semibold">{{ licencia.licencia_tipo }}</span>
                                     </div> 
                                     <div class="flex-1">
-                                        <span >{{ licencia.observacion.substring(0,150) + ' ...' }}</span>
+                                        <template v-if="licencia.observacion">
+                                            <span >{{ licencia.observacion.substring(0,150) + ' ...' }}</span>
+                                        </template>
                                     </div>                               
                             </div>
                         </template>

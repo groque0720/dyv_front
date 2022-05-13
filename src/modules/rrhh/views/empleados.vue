@@ -189,7 +189,7 @@ export default {
         const router = useRouter()
         const rrhhStore = useRrhhStore()
         const isLoading = ref(true)
-        const currentPage = ref()
+        const currentPage = ref(1)
         const search = ref(null)
 
         const loadEmpleados = async( page = 1, q = '' ) => {
