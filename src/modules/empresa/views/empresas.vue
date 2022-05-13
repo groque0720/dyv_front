@@ -117,7 +117,8 @@ export default {
                 // this.isLoading = false
             }
         },
-        nuevaEmpresa() {
+        async nuevaEmpresa() {
+            await this.clearEmpresa()
             this.openModalEmpresa()
         }
     },

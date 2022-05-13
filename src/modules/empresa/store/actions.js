@@ -90,6 +90,8 @@ const updateEmpresa = async() => {
         empresaStore.empresas[idx] = empresa;
         empresaStore.empresa = data.empresas
 
+        clearEmpresa()
+
         return { ok:true }
 
     } catch (error) {
@@ -101,7 +103,7 @@ const clearEmpresa = async() => {
     const empresaStore = useEmpresaStore();
     try {
         empresaStore.empresa = {};
-        console.log('limpia');
+        // console.log('limpia');
         return { ok: true }
     } catch (error) {
         return { ok: false, message: error.response.data.msg }
