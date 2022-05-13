@@ -56,7 +56,7 @@ export default {
             onSubmit: async() => {
                 const { ok, message } = await signInUser( userForm.value )
                 if( !ok ) Swal.fire("Error", message, "error")
-                else router.push({name: 'Home' })
+                else router.push({name: 'rrhh_dashboard' })
             }
         }
 
