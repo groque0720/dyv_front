@@ -8,7 +8,7 @@
                 </div>
                 <div class="form-row">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" v-model="userForm.email" class="form-input" name="email" placeholder="nombre@derkayvargas.com.ar" required="">
+                    <input type="email" v-model="userForm.email" class="form-input" name="email" placeholder="Ingrese su correo" required="">
                 </div>
                 <div class="form-row">
                     <label for="password" class="form-label">password</label>
@@ -45,8 +45,8 @@ export default {
         const { signInUser } = authStore;
 
         const userForm = ref({
-            email: 'gomezroque@hotmail.com',
-            password: 'derkayvargas'
+            email: '',
+            password: ''
         });
 
 

@@ -311,8 +311,6 @@ const updatePuesto = async() => {
 }
 
 
-
-
 export default {
     loadEmpresas,
     selectedEmpresa,

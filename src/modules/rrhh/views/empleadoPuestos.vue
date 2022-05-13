@@ -20,6 +20,7 @@
                 <thead class="">
                     <tr>
                         <th>Puestos</th>
+                        <th>Principal</th>
                         <th>Fec. Inicio</th>
                         <!-- <th>Fec. Fin</th> -->
                         <th>Reemplazo</th>
@@ -38,36 +39,25 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="text-center">
+                                    <i v-if="puesto.principal" class="icon-check"></i>  
+                                </div>
+                            </td>
+                            <td>
                                 <div class="flex justify-center gap-3">
                                     {{ getFecha(puesto.fecha_inicio) }}
                                 </div>
                             </td>
-                            <!-- <td>
-                                <div class="flex justify-center gap-3">
-                                    {{ getFecha(puesto.fecha_fin) }}
-                                </div>
-                            </td> -->
                             <td>
                                 <div v-for="reemplazo in puesto.reemplazos" :key="reemplazo.user_id" 
                                     class="flex justify-start items-center gap-1">
-                                    <img    :src="baseURL+reemplazo.reemplazo.img"
+                                    <img  v-if="reemplazo.reemplazo.img != null"  :src="baseURL+reemplazo.reemplazo.img"
                                             :alt="reemplazo.reemplazo.nombre_completo"
                                             :title="reemplazo.reemplazo.nombre_completo"
                                             class=" h-8 w-8 rounded-full border-2 border-white shadow object-cover" >
+                                    <i v-else class="icon-perfil text-xl"></i>
                                     <span>{{ reemplazo.reemplazo.nombre_completo }}</span>
                                 </div>
-
-
-                                    <!-- <template v-for="reemplazo in puesto.reemplazos" :key="reemplazo.user_id">
-                                    {{ reemplazo.reemplazo.nombre_completo }}
-                                        <div class="flex items-center" :class="{'-ml-2': idx > 0 }">
-                                            <img    :src="baseURL+reemplazo.reemplazo.img"
-                                                    :alt="reemplazo.reemplazo.nombre_completo"
-                                                    :title="reemplazo.reemplazo.nombre_completo"
-                                                    class=" h-8 w-8 rounded-full border-2 border-white shadow object-cover" >
-                                        </div>
-                                    </template> -->
-
                             </td>
                             <td>
                                 <div class="flex justify-center gap-3">

@@ -21,4 +21,8 @@ export default () => ({
     licencias:[],
     estados_civiles:[],
     errors:[],
+    empleados_filtro:[],
+    filtro:{
+        empresas:[]
+    },
 })

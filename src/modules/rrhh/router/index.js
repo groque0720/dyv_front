@@ -76,6 +76,17 @@ export default {
                     component: () => import('../views/empleadoLicencias.vue')
                 },
                 {
+                    path: 'licencias/:licencia_id',
+                    name: 'rrhh_empleado_licencia',
+                    component: () => import('../views/empleadoLicenciasLicencia.vue'),
+                    props: ( route ) => {
+                        return {
+                            id: route.params.id,
+                            licencia_id: route.params.licencia_id
+                        }
+                    }
+                },
+                {
                     path: 'actividades',
                     name: 'rrhh_empleado_actividades',
                     component: () => import('../views/empleadoActividades.vue')
