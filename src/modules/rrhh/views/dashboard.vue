@@ -1,36 +1,41 @@
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
+    <Loading v-if="isLoading"></Loading>
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
 
-        <CardEstado 
-        :estado="{ title:'Empresas', to:'rrhh_dashboard', icono:' fas fa-industry ', color:'indigo'}">
-        </CardEstado>
-        
-        <CardEstadoPersonal 
-        :estado="{ title:'Sucursales', to:'', icono:'fas fa-users ', color:'blue'}">
-        <span>200</span></CardEstadoPersonal>
+    <div class="h-72 border p-3 rounded">
+        <CardEmpresa></CardEmpresa>
+    </div>
 
-        <CardEstado 
-        :estado="{ title:'Nómina', to:'', icono:'fas fa-users ', color:'blue'}">
-        <span>200</span></CardEstado>
+    <div class="h-72 border p-3 rounded">
+        <CardSucursales></CardSucursales>
+    </div>
 
-        <CardEstado 
-        :estado="{ title:'Activos', to:'', icono:'fas fa-user-check ', color:'green'}">
-        <span>150</span></CardEstado>
+    <div class="h-72 border p-3 rounded">
+        <CardSectores></CardSectores>
+    </div>
 
-        <CardEstado 
-        :estado="{ title:'Licencia', to:'', icono:'fas fa-power-off ', color:'orange'}"></CardEstado>
+    <div class="h-72 border p-3 rounded">
+        <CardAreas></CardAreas>
+    </div>
+    
+    <div class="h-72 border p-3 rounded">
+        <CardPuestos></CardPuestos>
+    </div>
 
-        <CardEstado 
-        :estado="{ title:'Parte Médico', to:'', icono:'fas fa-ambulance ', color:'red'}"></CardEstado>
+    
 
-        <CardEstado 
-        :estado="{ title:'Vacaciones', to:'', icono:'fas fa-umbrella-beach ', color:'sky'}"></CardEstado>
+    <!-- <div class="h-72 border p-3 rounded">
+        {{ empresas  }}
+    </div> -->
 
-        <CardEstado 
-        :estado="{ title:'Cumpleaños', to:'', icono:'fas fa-birthday-cake ', color:'Magenta'}"></CardEstado>
-        
-        <CardEstado 
-        :estado="{ title:'Otras Licencias', to:'', icono:'fas fa-bullseye ', color:'Purple'}"></CardEstado> -->
+    <div class="h-72 border p-3 rounded">
+        <div v-for="empleado in empleados">
+            <span>{{ empleado.nombre_completo }}</span>
+        </div>
+    </div>
+
+    <!-- {{ filtroEmpleado }} -->
+
 
 
     </div>
@@ -38,64 +43,60 @@
 
 <script>
 
-import CardEstado from "../components/CardEstado.vue"
-import { Chart } from 'highcharts-vue'
-import { ref } from 'vue';
-import CardEstadoPersonal from "../components/CardEstadoPersonal.vue";
+import { ref, computed } from 'vue';
+import { useRrhhStore } from '../store'
+import { useEmpresaStore } from '@/modules/empresa/store';
+import Loading from '../../../components/Loading.vue';
+import CardEmpresa from '../components/dasboard/cardEmpresa.vue';
+import CardSucursales from '../components/dasboard/cardSucursales.vue';
+import CardAreas from '../components/dasboard/cardAreas.vue';
+import CardSectores from '../components/dasboard/cardSectores.vue';
+import CardPuestos from '../components/dasboard/cardPuestos.vue';
 
 
 export default {
-    name: 'Dashboard',
+    name: "Dashboard",
     setup() {
+        const rrhhStore = useRrhhStore()
+        const isLoading = ref(false)
+ 
+        const loadEmpleados = async() => {
+            const { ok, message } = await rrhhStore.loadEmpleados()
+            if ( !ok ) Swal.fire("Atención", message, "info")
+            else
+            // rrhhStore.empleados_filtro = rrhhStore.empleados
+            rrhhStore.empleados.forEach ( empleado_ => {
+                empleado_.empresa_filtro = true
+                empleado_.sucursal_filtro = true
+                empleado_.sector_filtro = true
+                empleado_.area_filtro = true
+                empleado_.puesto_filtro = true
+                empleado_.licencia_filtro = true
+            })
 
-    const chartOptions = ref({
-                                chart: {
-                                    plotBackgroundColor: null,
-                                    plotBorderWidth: null,
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: ''
-                                },
-                                tooltip: {
-                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                plotOptions: {
-                                    pie: {
-                                        allowPointSelect: true,
-                                        cursor: 'pointer',
-                                        dataLabels: {
-                                            enabled: true,
-                                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                                        }
-                                    }
-                                },
-                                series: [{
-                                    name: 'Personal',
-                                    colorByPoint: true,
-                                    data: [{
-                                        name: 'Derka y Vargas',
-                                        y: 61.41,
-                                        sliced: true,
-                                        selected: true
-                                    }, {
-                                        name: 'Agropecuaria',
-                                        y: 11.84
-                                    }]
-                                }]
-                            })
+        }
+
+        // const loadLicencias = async () => {
+        //     const { ok, message } = await rrhhStore.loadLicencias()
+        //     if (!ok)
+        //         Swal.fire("Error", message, "error")
+        //     isLoading.value = false
+        // };
+
+        loadEmpleados()
+        // loadLicencias()
+
         return {
-            chartOptions,
-
+            isLoading,
+            empleados: computed( () => rrhhStore.empleados.filter( (empleado_) => empleado_.empresa_filtro &&
+                                                                                   empleado_.sucursal_filtro &&
+                                                                                   empleado_.sector_filtro &&
+                                                                                   empleado_.area_filtro &&
+                                                                                   empleado_.puesto_filtro &&
+                                                                                   empleado_.licencia_filtro ))
         };
     },
-    components: { CardEstado, highcharts: Chart, CardEstadoPersonal }
+    components: { Loading, CardEmpresa, CardSucursales, CardAreas, CardSectores, CardPuestos }
 }
 
 </script>

@@ -186,7 +186,6 @@
                     <div class="flex justify-between items-center gap-2" @click="onClickSupervisor(empleadoForm.id)">
                         <input class="form-input" v-model="empleadoForm.supervisor.nombre_completo"  readonly >
                         <i class="icon-search cursor-pointer"></i>
-
                         <input class="form-input" type="hidden" name="supervisor_id" v-model="empleadoForm.supervisor_id">
                     </div>
 
@@ -204,7 +203,8 @@
                                     <template v-else>
                                         <div v-for="supervisor in supervisores" :key="supervisor.id" @click="onSelectedSupervisor(supervisor)"
                                                 class="flex justify-between items-center gap-3 p-2 border-b border-indigo-300 cursor-pointer hover:bg-indigo-50">
-                                            <img class="w-8 h-8 rounded-full object-cover"  :src="baseURL+supervisor.img" alt="">
+                                            <img v-if="supervisor.img != null" class="w-8 h-8 rounded-full object-cover"  :src="baseURL+supervisor.img" alt="">
+                                            <i v-else class="icon-perfil text-xl"></i>
                                             <span class="flex-1">{{ supervisor.nombre_completo }}</span>
                                         </div>
                                     </template>

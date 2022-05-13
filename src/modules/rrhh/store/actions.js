@@ -19,9 +19,6 @@ const iniciarEmpleado = () => {
 }
 
 
-
-
-
 const loadEmpleados= async( page, q = '' ) => {
     const rrhhStore = useRrhhStore();
     // rrhhStore.empleado = {}
@@ -36,7 +33,7 @@ const loadEmpleados= async( page, q = '' ) => {
         if ( data.length > 0 ) {
             rrhhStore.empleados = data;
         } else if (page > 0) {
-            return { ok: false, message: 'No hay mas registros' }
+            return { ok: false, message: 'No hay registros para mostrar' }
         } 
 
         return { ok: true, message: 'Cargando' }
@@ -62,7 +59,12 @@ const loadEmpleado = async( id ) => {
     iniciarEmpleado()
     try {
         const { data } = await dyvApi.get(`/usuarios/${ id }`);
-        rrhhStore.empleado = data;
+
+        rrhhStore.empleado = data
+        if (rrhhStore.empleado.supervisor == null) {
+            rrhhStore.empleado.supervisor = { nombre_completo: '' }
+        } 
+
         rrhhStore.empleado.empresa_id = data.sucursal.empresa_id
         rrhhStore.empleado.sindicato_id = data.categoria.sindicato_id
 
@@ -152,6 +154,9 @@ const createEmpleado = async() => {
         empleado.password = 'derkayvargas'
         const { data } = await dyvApi.post(`/usuarios/`, empleado )
         rrhhStore.empleado = data;
+        if (rrhhStore.empleado.supervisor == null) {
+            rrhhStore.empleado.supervisor = { nombre_completo: '' }
+        } 
         rrhhStore.empleado.empresa_id = data.sucursal.empresa_id
         rrhhStore.empleado.sindicato_id = data.categoria.sindicato_id
         return { ok: true, message: 'Cargando' }       
@@ -383,7 +388,7 @@ const createEmpleadoPuesto = async( puestoForm ) => {
 const updateEmpleadoPuesto = async( puestoForm ) => {
     const rrhhStore = useRrhhStore()
 
-    console.log(puestoForm);
+    // console.log(puestoForm);
     try {
         const { data } = await dyvApi.put(`/puestos/puesto_empleado/${ puestoForm.id }`, puestoForm )
         // rrhhStore.empleado = data
@@ -396,6 +401,59 @@ const updateEmpleadoPuesto = async( puestoForm ) => {
     }
 }
 
+
+const getLicencias = async() => {
+    const rrhhStore = useRrhhStore();
+    try {
+        const { data } = await dyvApi.get(`/licencias/`);
+        rrhhStore.licencias = data
+        return { ok: true }
+    } catch (error) {
+        return { ok: false, message: error.response.data.msg }  
+    }
+
+}
+
+
+const getLicenciaSearch = ( licenciaSearch ) => {
+    const rrhhStore = useRrhhStore()
+    if ( licenciaSearch.length === 0 ){
+        return rrhhStore.licencias
+    }  
+    return rrhhStore.licencias.filter( licencia => licencia.licencia_tipo.licencia_tipo.toLowerCase().includes( licenciaSearch.toLowerCase() ) )
+}
+
+const createEmpleadoLicencia = async( licenciaForm ) => {
+    const rrhhStore = useRrhhStore()
+    const user_id = rrhhStore.empleado.id
+
+    try {
+        // console.log( puestoForm )
+        const { data } = await dyvApi.post(`/licencias/licencia_empleado`, {  user_id, licencia:licenciaForm } );
+        console.log( data )
+        rrhhStore.empleado.licencias.push(data)
+        return { ok: true, licencia:data }
+    } catch (error) {
+        return { ok: false, message: error.response.data.msg }   
+    }
+}
+
+
+const updateEmpleadoLicencia = async( licenciaForm ) => {
+    const rrhhStore = useRrhhStore()
+
+    // console.log(puestoForm);
+    try {
+        const { data } = await dyvApi.put(`/licencias/licencia_empleado/${ licenciaForm.id }`, licenciaForm )
+        // rrhhStore.empleado = data
+        
+        return { ok: true, licencia:data }
+    } catch (error) {
+
+        console.log(error.response.data )
+        return { ok: false, message: error.response.data.msg }   
+    }
+}
 
 
 export default {
@@ -426,6 +484,10 @@ export default {
     getPuestos,
     getPuestoSearch,
     createEmpleadoPuesto,
-    updateEmpleadoPuesto
+    updateEmpleadoPuesto,
+    getLicencias,
+    getLicenciaSearch,
+    createEmpleadoLicencia,
+    updateEmpleadoLicencia,
     
 }

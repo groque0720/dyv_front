@@ -12,7 +12,7 @@
         <form action="#" @submit.prevent="enviarForm()" autocomplete="off" class="mt-2 p-3 border rounded">
 
             <div class="form-row flex justify-between gap-3">
-                <div class=" flex-1">
+                <div class="flex-1">
                     <label class="required" for="">Puesto</label>
                     <div class="flex justify-center items-center gap-2" @click="onClickPuesto()">
                         <i class="icon-search cursor-pointer"></i>
@@ -20,6 +20,13 @@
                         <!-- <input class="form-input" type="text" name="puesto" v-model="puestoForm.id"  readonly required> -->
                     </div>
                     <!-- <Errors :errors="errors" :field="'puesto'"></Errors> -->
+                </div>
+                <div class="w-2/12" >
+                    <label class="required" for="">Principal</label>
+                    <select class="form-select" name="principal" id="" v-model="puestoForm.principal" required>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="">
                     <label class="required" for="">Fecha Inicio</label>
@@ -58,8 +65,9 @@
                                 <tr>
                                     <td>
                                         <div class="flex justify-start items-center gap-3">
-                                            <img class="w-8 h-8 rounded-full object-cover"
+                                            <img v-if="reemplazo.img != null" class="w-8 h-8 rounded-full object-cover"
                                                 :src="baseURL+reemplazo.reemplazo.img" :alt="reemplazo.reemplazo.nombre_completo">
+                                            <i v-else class="icon-perfil text-xl"></i>
                                             <span>{{ reemplazo.reemplazo.nombre_completo }}</span>
                                         </div>
                                     </td>
@@ -121,7 +129,8 @@
                         <template v-else>
                             <div v-for="reemplazo in reemplazos" :key="reemplazo.id" @click="onSelectedReemplazo(reemplazo)"
                                     class="flex justify-between items-center gap-3 p-2 border-b border-indigo-300 cursor-pointer hover:bg-indigo-50">
-                                <img class="w-8 h-8 rounded-full object-cover"  :src="baseURL+reemplazo.img" alt="">
+                                <img v-if="reemplazo.img != null" class="w-8 h-8 rounded-full object-cover"  :src="baseURL+reemplazo.img" alt="">
+                                <i v-else class="icon-perfil text-xl"></i>
                                 <span class="flex-1">{{ reemplazo.nombre_completo }}</span>
                             </div>
                         </template>
@@ -166,7 +175,6 @@ export default {
                 showIcon: true,
                 timeout: 2000
             })
-
 
 
             const puestoForm = ref({
@@ -275,6 +283,7 @@ export default {
                     const { ok, message } = await rrhhStore.updateEmpleadoPuesto( puestoForm.value )
                     if ( !ok ) Swal.fire("Error", message, "error")
                     else createToast('Se guardó correctamente', optionsToast('success') )
+                    await rrhhStore.loadEmpleado(props.id)
                     router.push({ name: 'rrhh_empleado_puestos'})
                 }else{
                     const { ok, message, puesto } = await rrhhStore.createEmpleadoPuesto( puestoForm.value )
