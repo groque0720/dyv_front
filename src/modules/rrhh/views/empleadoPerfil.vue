@@ -99,12 +99,12 @@
                     <input class="form-input" type="text" v-model="empleadoForm.telefono">
                 </div>
                 <div class="">
-                    <label class="required" for="">Celular</label>
-                    <input class="form-input" type="text" name="celular" v-model="empleadoForm.celular" required>
+                    <label for="">Celular</label>
+                    <input class="form-input" type="text" name="celular" v-model="empleadoForm.celular">
                 </div>
                 <div class="flex-1">
                     <label for="">Email</label>
-                    <input class="form-input" type="text" name="email" v-model="empleadoForm.email" required>
+                    <input class="form-input" type="text" name="email" v-model="empleadoForm.email">
                     <Errors :errors="errors" :field="'email'"></Errors>
                 </div>
             </div>
@@ -115,8 +115,8 @@
 
             <div class="form-row flex justify-between gap-3">
                 <div class="flex-1">
-                    <label class="required" for="">Nro Legajo</label>
-                    <input class="form-input" type="text" name="nro_legajo" v-model="empleadoForm.nro_legajo" required>
+                    <label for="">Nro Legajo</label>
+                    <input class="form-input" type="text" name="nro_legajo" v-model="empleadoForm.nro_legajo" placeholder="crea automático" readonly>
                     <Errors :errors="errors" :field="'nro_legajo'"></Errors>
                 </div>
                 <div class="flex-1">
